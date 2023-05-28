@@ -1,0 +1,13 @@
+{
+    "name": "user/ticket-plugin",
+    "authors": [
+        {
+            "name": "Soltani",
+            "email": "soltani5747@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "classmap": ["inc/"]
+    }
+}
