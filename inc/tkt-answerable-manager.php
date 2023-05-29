@@ -17,7 +17,7 @@ class TKT_Answerable_Manager
     {
         return $this->wpdb->insert(
             $this->table,
-            ['department_id' => $data['department_id'] , 'user_id' => $data['user_id']],
+            ['department_id' => sanitize_text_field($data['department_id']) , 'user_id' => sanitize_textarea_field($data['user_id'])],
             ['%d' , '%d']
         );
     }

@@ -24,15 +24,20 @@ class TKT_Admin_Department_Manager
                     exit('Sorry, your nonce did not verify');
                 }
                 $insert = $this->insert($_POST);
-                echo '<pre>';var_dump($_POST['answerable']);echo '</pre>';
+
                 if ($insert) {
+                    $answerable_manager = new TKT_Answerable_Manager();
                     // add user answerable
+                    if ($_POST['answerable']) {
+                        foreach ($_POST['answerable'] as $user) {
+                            $answerable_manager->insert(['department_id' => $insert, 'user_id' => $user]);
+                        }
+                    }
                     TKT_Flash_Message::add_message('دپارتمان با موفقیت ایجاد شد');
                 }
             }
             //edit department
-            if (isset($_POST['add_department_nonce'])){
-                
+            if (isset($_POST['add_department_nonce'])) {
             }
             $departments = $this->get_departments();
             include TKT_VIEWS_PATH . 'admin/department/main.php';

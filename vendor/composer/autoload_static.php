@@ -62,6 +62,7 @@ class ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'TKT_Admin_Ajax' => __DIR__ . '/../..' . '/inc/admin/tkt-admin-ajax.php',
         'TKT_Admin_Department_Manager' => __DIR__ . '/../..' . '/inc/admin/tkt-admin-department-manager.php',
+        'TKT_Answerable_Manager' => __DIR__ . '/../..' . '/inc/tkt-answerable-manager.php',
         'TKT_Assets' => __DIR__ . '/../..' . '/inc/tkt-assets.php',
         'TKT_DB' => __DIR__ . '/../..' . '/inc/tkt-db.php',
         'TKT_Flash_Message' => __DIR__ . '/../..' . '/inc/admin/tkt-flash-message.php',
