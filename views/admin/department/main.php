@@ -12,6 +12,7 @@
 
                 <div class="form-wrap">
                     <h2>دپارتمان جدید</h2>
+                    <?php TKT_Flash_Message::show_message(); ?>
                     <form id="tkt-add-department" method="post" class="validate">
                         <?php wp_nonce_field('add_department', 'add_department_nonce', false); ?>
                         <div class="form-field form-required term-name-wrap">
