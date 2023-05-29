@@ -78,7 +78,7 @@
                                         <br>
                                         <div class="row-actions">
                                             <span class="edit"><a href="">ویرایش</a></span>
-                                            <span class="delete"><a href="">حذف</a></span>
+                                            <span class="delete"><a href="<?php echo wp_nonce_url(admin_url('admin.php?page=tkt-departments&action=delete&id=' . $department->ID) , 'delete_department' , 'delete_department_nonce') ?>">حذف</a></span>
                                         </div>
                                     </td>
                                     <td>

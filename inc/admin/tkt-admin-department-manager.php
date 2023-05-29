@@ -17,16 +17,18 @@ class TKT_Admin_Department_Manager
     public function page()
     {
 
+        $answerable_manager = new TKT_Answerable_Manager();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // add department
             if (isset($_POST['add_department_nonce'])) {
-                if (!isset($_POST['add_department_nonce']) && !wp_verify_nonce($_POST['add_department_nonce'], 'add_department')) {
+                if (!isset($_POST['add_department_nonce']) && !wp_verify_nonce($_POST['add_department_nonce'], 'delete_department_nonce')) {
                     exit('Sorry, your nonce did not verify');
                 }
                 $insert = $this->insert($_POST);
 
                 if ($insert) {
-                    $answerable_manager = new TKT_Answerable_Manager();
+
                     // add user answerable
                     if ($_POST['answerable']) {
                         foreach ($_POST['answerable'] as $user) {
@@ -37,13 +39,25 @@ class TKT_Admin_Department_Manager
                 }
             }
             //edit department
-            if (isset($_POST['add_department_nonce'])) {
+            if (isset($_POST['edit_department_nonce'])) {
             }
             $departments = $this->get_departments();
             include TKT_VIEWS_PATH . 'admin/department/main.php';
         } else {
-            $departments = $this->get_departments();
-            include TKT_VIEWS_PATH . 'admin/department/main.php';
+            if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+                if (isset($_GET['delete_department_nonce']) && !wp_verify_nonce($_GET['delete_department_nonce'], 'delete_department_nonce')) {
+                    $this->delete($_GET['id']);
+                    TKT_Flash_Message::add_message('دپارتمان موردنظر با موفقیت حذف شد');
+
+                    $answerable_manager->delete($_GET['id']);
+
+                    $departments = $this->get_departments();
+                    include TKT_VIEWS_PATH . 'admin/department/main.php';
+                }
+            } else {
+                $departments = $this->get_departments();
+                include TKT_VIEWS_PATH . 'admin/department/main.php';
+            }
         }
     }
 
@@ -55,6 +69,11 @@ class TKT_Admin_Department_Manager
     private function get_department($id)
     {
         return $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE ID = %d", $id));
+    }
+
+    public function delete($id)
+    {
+        $this->wpdb->delete($this->table, ['ID' => $id], ['%d']);
     }
 
     private function insert($data)

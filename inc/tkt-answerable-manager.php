@@ -21,4 +21,8 @@ class TKT_Answerable_Manager
             ['%d' , '%d']
         );
     }
+
+    public function delete($department_id){
+        $this->wpdb->delete($this->table , ['department_id' => $department_id] , ['%d']);
+    }
 }
