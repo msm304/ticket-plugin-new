@@ -56,6 +56,8 @@ class Core
         if(is_admin()){
             new TKT_Menu();
             new TKT_Admin_Ajax();
+        }else{
+            new TKT_WC_Dashboard();
         }
     }
     public function active()

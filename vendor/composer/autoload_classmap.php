@@ -66,6 +66,7 @@ return array(
     'TKT_DB' => $baseDir . '/inc/tkt-db.php',
     'TKT_Flash_Message' => $baseDir . '/inc/admin/tkt-flash-message.php',
     'TKT_Menu' => $baseDir . '/inc/admin/abstract/tkt-menu.php',
+    'TKT_WC_Dashboard' => $baseDir . '/inc/admin/front/tkt-wc-dashboard.php',
     'WP_Customize_Control_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',
     'WP_Customize_Panel_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',
     'WP_Customize_Section_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',
