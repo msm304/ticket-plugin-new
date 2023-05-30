@@ -77,7 +77,7 @@
                                         <strong><?php echo esc_html($department->name) ?></strong>
                                         <br>
                                         <div class="row-actions">
-                                            <span class="edit"><a href="">ویرایش</a></span>
+                                            <span class="edit"><a href="<?php echo esc_url(admin_url('admin.php?page=tkt-departments&action=edit&id=' . $department->ID)) ?>">ویرایش</a></span>
                                             <span class="delete"><a href="<?php echo wp_nonce_url(admin_url('admin.php?page=tkt-departments&action=delete&id=' . $department->ID) , 'delete_department' , 'delete_department_nonce') ?>">حذف</a></span>
                                         </div>
                                     </td>
