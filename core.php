@@ -8,6 +8,8 @@ Version: 1.0.0
 Author URI: https://owebra.com
 */
 
+// test new 2
+
 defined('ABSPATH') || exit('Not Access');
 class Core
 {
