@@ -4,9 +4,9 @@
         <a href="<?php echo TKT_Ticket_Url::all(); ?>" class="tkt-all-tickets tkt-btn tkt-btn-primary tkt-btn-small">همه تیکت ها</a>
     </header>
 
-    <div class="tkt-help-text">
-        <p>متن توضیح کوتاه در ارتباط با ارسال تیکت</p>
-    </div>
+    <?php if (tkt_settings('new-ticket-alert')) : ?>
+        <div class="tkt-help-text"><?php echo tkt_settings('new-ticket-alert-text') ?></div>
+    <?php endif; ?>
 
     <ul class="tkt-fags">
         <li>

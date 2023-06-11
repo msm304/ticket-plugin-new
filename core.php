@@ -50,6 +50,7 @@ class Core
         require_once TKT_PATH . 'vendor/autoload.php';
         require_once TKT_INC_PATH . 'admin/codestar/codestar-framework.php';
         require_once TKT_INC_PATH . 'admin/tkt-settings.php';
+        require_once TKT_INC_PATH . 'functions.php';
         register_activation_hook(TKT_BASE_FILE, [$this, 'active']);
         register_deactivation_hook(TKT_BASE_FILE, [$this, 'deactive']);
         new TKT_Assets();
@@ -59,6 +60,8 @@ class Core
         } else {
             new TKT_WC_Dashboard();
         }
+        new TKT_Assets();
+        tkt_settings();
     }
     public function active()
     {

@@ -16,36 +16,42 @@ if (class_exists('CSF')) {
         'framework_title' => 'تیکت پشتیبانی',
     ));
 
-    //
     // Create a section
-    CSF::createSection($prefix, array(
-        'title'  => 'Tab Title 1',
-        'fields' => array(
-
-            //
-            // A text field
-            array(
-                'id'    => 'opt-text',
-                'type'  => 'text',
-                'title' => 'Simple Text',
-            ),
-
+    CSF::createSection(
+        $prefix,
+        array(
+            'title'  => 'عمومی',
+            'fields' => array(
+                array(
+                    'id'      => 'new-ticket-alert',
+                    'type'    => 'switcher',
+                    'title'   => 'پیغام صفحه ارسال تیکت',
+                    'label'   => 'آیا فعال باشد؟',
+                    'default' => false
+                ),
+                array(
+                    'id'      => 'new-ticket-alert-text',
+                    'type'    => 'textarea',
+                    'title'   => 'متن پیغام',
+                    'default' => 'این متن پیش فرض جهت تست است',
+                    'dependency' => array('new-ticket-alert', '==', 'true')
+                ),
+            )
         )
-    ));
-
-    //
-    // Create a section
-    CSF::createSection($prefix, array(
-        'title'  => 'Tab Title 2',
-        'fields' => array(
-
-            // A textarea field
-            array(
-                'id'    => 'opt-textarea',
-                'type'  => 'textarea',
-                'title' => 'Simple Textarea',
-            ),
-
+    );
+    CSF::createSection(
+        $prefix,
+        array(
+            'title'  => 'استایل',
+            'fields' => array(
+                array(
+                    'id'      => 'opt-switcher-2',
+                    'type'    => 'switcher',
+                    'title'   => 'Switcher',
+                    'label'   => 'Do you want activate it ?',
+                    'default' => true
+                ),
+            )
         )
-    ));
+    );
 }
