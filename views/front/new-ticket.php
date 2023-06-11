@@ -1,7 +1,7 @@
 <div class="tkt-wrap tkt-submit-ticket">
     <header class="tkt-panel-header tkt-clearfix">
         <h4>ایجاد تیکت جدید</h4>
-        <a href="" class="tkt-all-tickets tkt-btn tkt-btn-primary tkt-btn-small">همه تیکت ها</a>
+        <a href="<?php echo TKT_Ticket_Url::all(); ?>" class="tkt-all-tickets tkt-btn tkt-btn-primary tkt-btn-small">همه تیکت ها</a>
     </header>
 
     <div class="tkt-help-text">
