@@ -8,8 +8,6 @@ Version: 1.0.0
 Author URI: https://owebra.com
 */
 
-// test new 2
-
 defined('ABSPATH') || exit('Not Access');
 class Core
 {
@@ -55,16 +53,16 @@ class Core
         register_activation_hook(TKT_BASE_FILE, [$this, 'active']);
         register_deactivation_hook(TKT_BASE_FILE, [$this, 'deactive']);
         new TKT_Assets();
-        if(is_admin()){
+        if (is_admin()) {
             new TKT_Menu();
             new TKT_Admin_Ajax();
-        }else{
+        } else {
             new TKT_WC_Dashboard();
         }
     }
     public function active()
     {
-        TKT_DB::create_tables();    
+        TKT_DB::create_tables();
     }
     public function deactive()
     {

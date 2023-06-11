@@ -34,6 +34,11 @@ class TKT_WC_Dashboard
     }
     public function get_view()
     {
+        if($_GET['action']){
+            if($_GET['action'] == 'new'){
+                return TKT_VIEWS_PATH . 'front/new-ticket.php';
+            }
+        }
         return TKT_VIEWS_PATH . 'front/tickets.php';
     }
 }
