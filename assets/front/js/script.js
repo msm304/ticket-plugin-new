@@ -19,10 +19,19 @@ jQuery(document).ready(function ($) {
 
       return false;
     }
-
+    $(".tkt-description-wrapper").hide();
     $(".tkt-child-department").hide();
     $(".tkt-child-department-" + value)
       .show()
       .prop("selectedIndex", 0);
+  });
+  $(".tkt-child-department").change(function (e) {
+    e.preventDefault();
+
+    let $this = $(this);
+    let value = $this.val();
+
+    $(".tkt-description-wrapper").hide();
+    $(".tkt-description-wrapper-" + value).show();
   });
 });

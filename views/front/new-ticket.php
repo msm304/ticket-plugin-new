@@ -64,7 +64,7 @@ $parent_departments = $department_manager->get_parent_department();
                             </select>
                             <?php foreach ($childs as $child) : ?>
                                 <?php if ($child->description != '') : ?>
-                                    <div class="tkt-description-wrapper tkt-description-wrapper">
+                                    <div class="tkt-description-wrapper tkt-description-wrapper-<?php echo $child->ID ?>">
                                         <div class="tkt-form-group">
                                             <div class="tkt-description"><?php echo esc_html($child->description) ?></div>
                                         </div>
