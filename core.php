@@ -53,7 +53,7 @@ class Core
         require_once TKT_INC_PATH . 'functions.php';
         register_activation_hook(TKT_BASE_FILE, [$this, 'active']);
         register_deactivation_hook(TKT_BASE_FILE, [$this, 'deactive']);
-        new TKT_Assets();
+        // new TKT_Assets();
         if (is_admin()) {
             new TKT_Menu();
             new TKT_Admin_Ajax();

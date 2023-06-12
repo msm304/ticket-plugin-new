@@ -1,7 +1,17 @@
+<?php
+
+$department_manager = new TKT_Front_Department_Manager();
+$parent_departments = $department_manager->get_parent_department();
+
+?>
+
 <div class="tkt-wrap tkt-submit-ticket">
+
     <header class="tkt-panel-header tkt-clearfix">
         <h4>ایجاد تیکت جدید</h4>
+
         <a href="<?php echo TKT_Ticket_Url::all(); ?>" class="tkt-all-tickets tkt-btn tkt-btn-primary tkt-btn-small">همه تیکت ها</a>
+
     </header>
 
     <?php if (tkt_settings('new-ticket-alert')) : ?>
@@ -9,53 +19,64 @@
     <?php endif; ?>
 
     <ul class="tkt-fags">
-        <li>
-            <h5>
-                عنوان سوال
-            </h5>
-            <p>پاراگراف</p>
-        </li>
+        <?php foreach (tkt_settings('faqs') as $faq) : ?>
+            <li>
+                <h5>
+                    <?php echo esc_html($faq['faq-title']); ?>
+                </h5>
+                <p><?php echo nl2br(esc_html($faq['faq-body'])); ?></p>
+            </li>
+        <?php endforeach; ?>
+
     </ul>
 
     <form id="tkt-submit-ticket" class="" enctype="multipart/form-data">
         <div class="tkt-row">
-            <div class="tkt-parent-department-wrapper tkt-col-12 tkt-col-lg-6">
-                <div class="tkt-form-group">
-                    <label class="tkt-form-label" for="tkt-parent-department">دپارتمان را انتخاب کنید</label>
-                    <select class="tkt-parent-department tkt-custom-select" id="tkt-parent-department">
-                        <option value="">یک مورد را انتخاب نمایید</option>
-                        <option value="">مورد اول</option>
-                    </select>
-                </div>
-            </div>
-            <div class="tkt-child-department-wrapper tkt-col-12 tkt-col-lg-6">
-                <div class="tkt-form-group">
-
-                    <label class="tkt-form-label" for="tkt-child-department">نوع تیکت را انتخاب نمایید</label>
-                    <select class="tkt-child-department tkt-child-department-0 tkt-custom-select" id="tkt-child-department" name="child-department">
-                        <option value="">ابتدا دپارتمان را انتخاب نمایید</option>
-                    </select>
-
-                    <select class="tkt-child-department tkt-child-department-tkt-custom-select" id="tkt-child-department" name="child-department">
-                        <option value="">عنوان تیکت را انتخاب نمایید</option>
-                        <option value=""></option>
-                    </select>
-                    <div class="tkt-description-wrapper tkt-description-wrapper">
-                        <div class="tkt-form-group">
-                            <div class="tkt-description"></div>
-                        </div>
-                    </div>
-                    <div class="tkt-child-department tkt-child-department-23 tkt-alert tkt-alert-danger">
-                        <p>هیچ دپارتمان فرزندی یافت نشد</p>
+            <?php if (isset($parent_departments) && count($parent_departments) > 0) : ?>
+                <div class="tkt-parent-department-wrapper tkt-col-12 tkt-col-lg-6">
+                    <div class="tkt-form-group">
+                        <label class="tkt-form-label" for="tkt-parent-department">دپارتمان را انتخاب کنید</label>
+                        <select class="tkt-parent-department tkt-custom-select" id="tkt-parent-department">
+                            <option value="">یک مورد را انتخاب نمایید</option>
+                            <?php foreach ($parent_departments as $item) : ?>
+                                <option value="<?php echo esc_attr($item->ID) ?>"><?php echo esc_html($item->name) ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
-            </div>
+                <div class="tkt-child-department-wrapper tkt-col-12 tkt-col-lg-6">
+                    <div class="tkt-form-group">
 
-            <div class="tkt-alert tkt-alert-danger tkt-col-12">
-                <p>
-                    هیچ دپارتمانی یافت نشد. ابتدا دپارتمان ایجاد نمایید
-                </p>
-            </div>
+                        <label class="tkt-form-label" for="tkt-child-department">نوع تیکت را انتخاب نمایید</label>
+                        <select class="tkt-child-department tkt-child-department-0 tkt-custom-select" id="tkt-child-department" name="child-department">
+                            <option value="">ابتدا دپارتمان را انتخاب نمایید</option>
+                        </select>
+
+                        <?php foreach ($parent_departments as $parent_department) :
+                            $childs = $department_manager->get_child_department($parent_department->ID);
+                        ?>
+
+                            <select class="tkt-child-department tkt-child-department-<?php echo esc_attr($parent_department->ID) ?> tkt-custom-select" id="tkt-child-department" name="child-department">
+                                <option value="">عنوان تیکت را انتخاب نمایید</option>
+                                <?php foreach ($childs as $child) : ?>
+                                        <option value="<?php echo esc_attr($child->ID) ?>"><?php echo esc_html($child->name) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?php endforeach; ?>
+                            <div class="tkt-description-wrapper tkt-description-wrapper">
+                                <div class="tkt-form-group">
+                                    <div class="tkt-description">توضیح دپارتمان</div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            <?php else : ?>
+                <div class="tkt-alert tkt-alert-danger tkt-col-12">
+                    <p>
+                        هیچ دپارتمانی یافت نشد. ابتدا دپارتمان ایجاد نمایید
+                    </p>
+                </div>
+            <?php endif; ?>
         </div>
 
 

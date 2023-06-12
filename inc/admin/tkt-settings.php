@@ -45,12 +45,25 @@ if (class_exists('CSF')) {
             'title'  => 'استایل',
             'fields' => array(
                 array(
-                    'id'      => 'opt-switcher-2',
-                    'type'    => 'switcher',
-                    'title'   => 'Switcher',
-                    'label'   => 'Do you want activate it ?',
-                    'default' => true
+                    'id'     => 'faqs',
+                    'type'   => 'repeater',
+                    'title'  => 'سوال جدید',
+                    'fields' => array(
+
+                        array(
+                            'id'    => 'faq-title',
+                            'type'  => 'text',
+                            'title' => 'عنوان سوال'
+                        ),
+                        array(
+                            'id'    => 'faq-body',
+                            'type'  => 'textarea',
+                            'title' => 'توضیح سوال'
+                        ),
+
+                    ),
                 ),
+
             )
         )
     );

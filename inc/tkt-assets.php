@@ -23,5 +23,7 @@ class TKT_Assets
     public function front_assets()
     {
         wp_enqueue_style('tkt-style', TKT_FRONT_ASSETS . 'css/style.css', '', TKT_VER);
+        // script
+        wp_enqueue_script('tkt-script', TKT_FRONT_ASSETS . 'js/script.js', ['jquery'], true);
     }
 }
