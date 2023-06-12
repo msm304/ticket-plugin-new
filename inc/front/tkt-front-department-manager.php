@@ -19,6 +19,6 @@ class TKT_Front_Department_Manager
     }
     public function get_child_department($parent_id)
     {
-        return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE parent = %d ORDER BY postion", $parent_id));
+        return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE parent = %d ORDER BY position", $parent_id));
     }
 }

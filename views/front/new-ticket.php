@@ -59,15 +59,19 @@ $parent_departments = $department_manager->get_parent_department();
                             <select class="tkt-child-department tkt-child-department-<?php echo esc_attr($parent_department->ID) ?> tkt-custom-select" id="tkt-child-department" name="child-department">
                                 <option value="">عنوان تیکت را انتخاب نمایید</option>
                                 <?php foreach ($childs as $child) : ?>
-                                        <option value="<?php echo esc_attr($child->ID) ?>"><?php echo esc_html($child->name) ?></option>
+                                    <option value="<?php echo esc_attr($child->ID) ?>"><?php echo esc_html($child->name) ?></option>
                                 <?php endforeach; ?>
                             </select>
+                            <?php foreach ($childs as $child) : ?>
+                                <?php if ($child->description != '') : ?>
+                                    <div class="tkt-description-wrapper tkt-description-wrapper">
+                                        <div class="tkt-form-group">
+                                            <div class="tkt-description"><?php echo esc_html($child->description) ?></div>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             <?php endforeach; ?>
-                            <div class="tkt-description-wrapper tkt-description-wrapper">
-                                <div class="tkt-form-group">
-                                    <div class="tkt-description">توضیح دپارتمان</div>
-                                </div>
-                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             <?php else : ?>

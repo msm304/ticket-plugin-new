@@ -66,7 +66,7 @@ class ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6
         'TKT_Assets' => __DIR__ . '/../..' . '/inc/tkt-assets.php',
         'TKT_DB' => __DIR__ . '/../..' . '/inc/tkt-db.php',
         'TKT_Flash_Message' => __DIR__ . '/../..' . '/inc/admin/tkt-flash-message.php',
-        'TKT_Front_Department_Manager' => __DIR__ . '/../..' . '/inc/front/tkt-fornt-department-manager.php',
+        'TKT_Front_Department_Manager' => __DIR__ . '/../..' . '/inc/front/tkt-front-department-manager.php',
         'TKT_Menu' => __DIR__ . '/../..' . '/inc/admin/abstract/tkt-menu.php',
         'TKT_Ticket_Url' => __DIR__ . '/../..' . '/inc/front/tkt-ticket-url.php',
         'TKT_WC_Dashboard' => __DIR__ . '/../..' . '/inc/front/tkt-wc-dashboard.php',
