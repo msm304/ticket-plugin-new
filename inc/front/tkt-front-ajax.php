@@ -10,6 +10,15 @@ class TKT_Front_Ajax
     }
     public function submit_ticket()
     {
-        var_dump($_FILES);
+        if (!wp_verify_nonce($_POST['nonce'], 'tkt_ajax_nonce')) {
+            wp_send_json_error();
+        }
+        // upload file
+        $file = $_FILES['file'];
+        if ($file) {
+            $uploader = new TKT_Upload_Manager($file);
+            $upload_result = $uploader->upload();
+        }
+        // create ticket
     }
 }

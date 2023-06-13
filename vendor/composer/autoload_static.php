@@ -70,6 +70,7 @@ class ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6
         'TKT_Front_Department_Manager' => __DIR__ . '/../..' . '/inc/front/tkt-front-department-manager.php',
         'TKT_Menu' => __DIR__ . '/../..' . '/inc/admin/abstract/tkt-menu.php',
         'TKT_Ticket_Url' => __DIR__ . '/../..' . '/inc/front/tkt-ticket-url.php',
+        'TKT_Upload_Manager' => __DIR__ . '/../..' . '/inc/tkt-upload-manager.php',
         'TKT_WC_Dashboard' => __DIR__ . '/../..' . '/inc/front/tkt-wc-dashboard.php',
         'WP_Customize_Control_CSF' => __DIR__ . '/../..' . '/inc/admin/codestar/functions/customize.php',
         'WP_Customize_Panel_CSF' => __DIR__ . '/../..' . '/inc/admin/codestar/functions/customize.php',

@@ -69,6 +69,7 @@ return array(
     'TKT_Front_Department_Manager' => $baseDir . '/inc/front/tkt-front-department-manager.php',
     'TKT_Menu' => $baseDir . '/inc/admin/abstract/tkt-menu.php',
     'TKT_Ticket_Url' => $baseDir . '/inc/front/tkt-ticket-url.php',
+    'TKT_Upload_Manager' => $baseDir . '/inc/tkt-upload-manager.php',
     'TKT_WC_Dashboard' => $baseDir . '/inc/front/tkt-wc-dashboard.php',
     'WP_Customize_Control_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',
     'WP_Customize_Panel_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',
