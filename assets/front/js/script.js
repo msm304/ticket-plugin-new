@@ -65,7 +65,11 @@ jQuery(document).ready(function ($) {
       contentType: false,
       processData: false,
       success: function (response) {},
-      error: function (error) {},
+      error: function (error) { },
+      complete: function () {
+        submit.prop("disabled", false);
+        loader.hide();
+      },
     });
   });
 });
