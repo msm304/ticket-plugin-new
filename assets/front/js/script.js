@@ -64,7 +64,14 @@ jQuery(document).ready(function ($) {
       data: form_data,
       contentType: false,
       processData: false,
-      success: function (response) {},
+      success: function (response) {
+        if (response.__success) {
+          // Swal.fire("تیکت ارسال شد", "تیکت شما با موفقیت ثبت شد", "success");
+          window.location.href = response.results;
+        } else {
+          Swal.fire("ارسال ناموفق", "تیکت ارسال نشد", "error");
+        }
+      },
       error: function (error) {},
       complete: function () {
         submit.prop("disabled", false);

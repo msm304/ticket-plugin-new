@@ -13,7 +13,8 @@ class TKT_Ticket_Manager
     }
     public function insert($data)
     {
-        if (!intval($data['child_department'])) {
+        $errors = [];
+        if (!intval($data['department_id'])) {
             $errors[] = 'لطفاابتدا نوع تیکت را انتخاب نمایید';
         }
         if (empty($data['body'])) {
@@ -22,7 +23,7 @@ class TKT_Ticket_Manager
         if (count($errors) > 0) {
             return $errors;
         }
-        $this->wpdb->insert(
+        $insert = $this->wpdb->insert(
             $this->table,
             [
                 'title' => sanitize_text_field($data['title']),
@@ -32,11 +33,14 @@ class TKT_Ticket_Manager
                 'department_id' => $data['department_id'],
                 'status' => $data['status'],
                 'priority' => $data['priority'] ? $data['priority'] : 'medium',
-                'create_data' => date("Y-m-d H:i:s"),
-                'reply_date' =>
-                date("Y-m-d H:i:s"),
-                'file' => $data['file'] ? $data['file'] : NULL,
-            ]
+                'create_date' => date("Y-m-d H:i:s"),
+                'reply_date' => date("Y-m-d H:i:s"),
+                'file' => $data['file'] ? $data['file'] : NULL
+
+            ],
+            ['%s', '%s', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%s']
         );
+        $insert_id = $this->wpdb->insert_id;
+        return ['ticket_id' => $insert_id];
     }
 }

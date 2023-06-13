@@ -27,24 +27,41 @@ class TKT_Front_Ajax
         $ticket_data['body'] = $_POST['body'];
         $ticket_data['creator_id'] = $user_id;
         $ticket_data['status'] = 'open';
-        $ticket_data['priority'] = $_POST['priority']; 
+        $ticket_data['priority'] = $_POST['priority'];
         $ticket_data['department_id'] = $_POST['child_department'];
         // create ticket
         if (is_array($upload_result)) {
             // create ticket with file
-            if($upload_result['success']){
-                if(isset($upload_result['url'])){
+            if ($upload_result['success']) {
+                if (isset($upload_result['url'])) {
                     $ticket_data['file'] = $upload_result['url'];
                 }
 
                 $ticket_manager = new TKT_Ticket_Manager();
-                $ticket_manager->insert($ticket_data);
+                $ticket_id = $ticket_manager->insert($ticket_data);
 
-            }else{
-
+                if ($ticket_id) {
+                    $this->make_response(['__success' => true, 'results' => TKT_Ticket_Url::all()]);
+                }
+            } else {
+                $this->make_response(['__success' => false, 'results' => $upload_result['message']]);
             }
-        }else{
+        } else {
             //create ticket without file
+            $ticket_manager = new TKT_Ticket_Manager();
+            $ticket_id = $ticket_manager->insert($ticket_data);
+            if ($ticket_id) {
+                $this->make_response(['__success' => true, 'results' => '']);
+            }
         }
+    }
+    public function make_response($result)
+    {
+        if (is_array($result)) {
+            wp_send_json($result);
+        } else {
+            echo $result;
+        }
+        wp_die();
     }
 }
