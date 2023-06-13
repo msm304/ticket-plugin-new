@@ -34,4 +34,38 @@ jQuery(document).ready(function ($) {
     $(".tkt-description-wrapper").hide();
     $(".tkt-description-wrapper-" + value).show();
   });
+  $("#tkt-submit-ticket").submit(function (e) {
+    e.preventDefault();
+
+    let $this = $(this);
+
+    let submit = $this.find(".tkt-submit");
+    let loader = $this.find(".tkt-loader");
+
+    submit.prop("disabled", true);
+    loader.show();
+
+    form_data = new FormData();
+    form_data.append("action", "tkt_submit_ticket");
+    form_data.append("nonce", TKT_DATA.nonce);
+    form_data.append("parent_department", $("#tkt-parent-department").val());
+    form_data.append(
+      "child_department",
+      $(".tkt-child-department:visible").val()
+    );
+    form_data.append("title", $("#tkt-title").val());
+    form_data.append("priority", $("#tkt-priority").val());
+    form_data.append("body", $("#tkt-content").val());
+    form_data.append("file", $("#tkt-file").prop("files")[0]);
+
+    $.ajax({
+      type: "post",
+      url: TKT_DATA.ajax_url,
+      data: form_data,
+      contentType: false,
+      processData: false,
+      success: function (response) {},
+      error: function (error) {},
+    });
+  });
 });

@@ -25,5 +25,9 @@ class TKT_Assets
         wp_enqueue_style('tkt-style', TKT_FRONT_ASSETS . 'css/style.css', '', TKT_VER);
         // script
         wp_enqueue_script('tkt-script', TKT_FRONT_ASSETS . 'js/script.js', ['jquery'], true);
+        wp_localize_script('tkt-script', 'TKT_DATA', [
+            'ajax_url' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('tkt_ajax')
+        ]);
     }
 }

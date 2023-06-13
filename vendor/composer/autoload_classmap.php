@@ -65,6 +65,7 @@ return array(
     'TKT_Assets' => $baseDir . '/inc/tkt-assets.php',
     'TKT_DB' => $baseDir . '/inc/tkt-db.php',
     'TKT_Flash_Message' => $baseDir . '/inc/admin/tkt-flash-message.php',
+    'TKT_Front_Ajax' => $baseDir . '/inc/front/tkt-front-ajax.php',
     'TKT_Front_Department_Manager' => $baseDir . '/inc/front/tkt-front-department-manager.php',
     'TKT_Menu' => $baseDir . '/inc/admin/abstract/tkt-menu.php',
     'TKT_Ticket_Url' => $baseDir . '/inc/front/tkt-ticket-url.php',

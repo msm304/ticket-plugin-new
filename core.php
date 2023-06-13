@@ -60,6 +60,7 @@ class Core
         } else {
             new TKT_WC_Dashboard();
         }
+        new TKT_Front_Ajax();
         new TKT_Assets();
         tkt_settings();
     }
