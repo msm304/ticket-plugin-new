@@ -43,11 +43,57 @@ class TKT_Ticket_Manager
         $insert_id = $this->wpdb->insert_id;
         return ['ticket_id' => $insert_id];
     }
-    public function get_tickes($user_id)
+
+    public function get_tickes($user_id, $type, $status, $orderby)
     {
-        if(!intval($user_id)){
+        if (!intval($user_id)) {
             return [];
         }
-        return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE user_id = %d OR creator_id = %d" , $user_id , $user_id));
+
+        $args = [];
+
+        // type filter
+        switch ($type) {
+            case 'send':
+                $type_where = "creator_id = %d";
+                $args[] = $user_id;
+                break;
+            case 'received':
+                $type_where = "user_id = %d AND from_admin = 1";
+                $args[] = $user_id;
+                break;
+            default:
+                $type_where = "user_id = %d OR creator_id = %d";
+                $args[] = $user_id;
+                $args[] = $user_id;
+                break;
+        }
+        // status filter
+        switch ($status) {
+            case 'all':
+                $status_where  = "";
+                break;
+            case NULL:
+                $status_where = "";
+                break;
+            default:
+                $status_where = "AND status = %s";
+                $args[] = $status;
+                break;
+        }
+        // orderby filter
+        switch ($orderby) {
+            case 'create-date':
+                $orderby_sql = "ORDER BY create_date DESC";
+                break;
+            case 'reply-date':
+                $orderby_sql = "ORDER BY reply_date DESC";
+                break;
+            default:
+                $orderby_sql = "ORDER BY reply_date DESC";
+
+                break;
+        }
+        return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE " . $type_where . ' ' . $status_where . ' ' . $orderby_sql, $args));
     }
 }

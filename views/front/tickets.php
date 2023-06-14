@@ -1,9 +1,17 @@
 <?php
+
 $user_id = get_current_user_id();
+
+$type = $_GET['type'] ? $_GET['type'] : 'all';
+$status = $_GET['status'] ? $_GET['status'] : 'all';
+$orderby = $_GET['orderby'] ? $_GET['orderby'] : 'reply-date';
+
 $ticket_manager = new TKT_Ticket_Manager();
-$tickets = $ticket_manager->get_tickes($user_id);
+$tickets = $ticket_manager->get_tickes($user_id, $type, $status, $orderby);
 
 $department_manager = new TKT_Front_Department_Manager();
+
+$statuses = tkt_get_status();
 ?>
 <div class="tkt-wrap tkt-all-tickets">
 
@@ -46,15 +54,18 @@ $department_manager = new TKT_Front_Department_Manager();
         <form id="tkt-filter" method="get" action="">
             <select class="tkt-ticket-type tkt-custom-select" name="type">
                 <option value="all">همه</option>
-                <option value="sent">فرستاده شده</option>
-                <option value="received">دریافتی</option>
+                <option value="send" <?php selected($type, 'send') ?>>فرستاده شده</option>
+                <option value="received" <?php selected($type, 'received') ?>>دریافتی</option>
             </select>
             <select class="tkt-ticket-status tkt-custom-select" name="status">
-                <option value="all">همه</option>
+                <option value="all" <?php selected($status, 'all') ?>>همه</option>
+                <?php foreach ($statuses as $_status) : ?>
+                    <option <?php selected($status, $_status['slug']) ?> value="<?php echo $_status['slug'] ?>"><?php echo $_status['name'] ?></option>
+                <?php endforeach ?>
             </select>
             <select class="tkt-orderby tkt-custom-select" name="orderby">
-                <option value="reply-date">تاریخ پاسخ</option>
-                <option value="create-date">تاریخ ایجاد</option>
+                <option <?php selected($orderby, 'reply-date') ?> value="reply-date">تاریخ پاسخ</option>
+                <option <?php selected($orderby, 'create-date') ?> value="create-date">تاریخ ایجاد</option>
             </select>
             <input type="submit" class="tkt-filter tkt-btn tkt-btn-secondary" value="فیلتر">
         </form>
@@ -86,8 +97,8 @@ $department_manager = new TKT_Front_Department_Manager();
 
                     <div class="tkt-item-user">
                         <div class="tkt-item-inner">
-                            <?php 
-                                $user_data = get_userdata($ticket->creator_id);
+                            <?php
+                            $user_data = get_userdata($ticket->creator_id);
                             ?>
                             <span class="tkt-creator"><?php echo $user_data->display_name ?></span>
 
