@@ -15,7 +15,7 @@ class TKT_Ticket_Manager
     {
         $errors = [];
         if (!intval($data['department_id'])) {
-            $errors[] = 'لطفاابتدا نوع تیکت را انتخاب نمایید';
+            $errors[] = 'لطفا ابتدا نوع تیکت را انتخاب نمایید';
         }
         if (empty($data['body'])) {
             $errors[] = 'لطفا محتوا تیکت را وارد نمایید';
@@ -43,4 +43,5 @@ class TKT_Ticket_Manager
         $insert_id = $this->wpdb->insert_id;
         return ['ticket_id' => $insert_id];
     }
+    
 }

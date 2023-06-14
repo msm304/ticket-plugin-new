@@ -69,7 +69,7 @@ jQuery(document).ready(function ($) {
           // Swal.fire("تیکت ارسال شد", "تیکت شما با موفقیت ثبت شد", "success");
           window.location.href = response.results;
         } else {
-          Swal.fire("ارسال ناموفق", "تیکت ارسال نشد", "error");
+          Swal.fire("ارسال ناموفق", response.results.toString().replace(',','<br>'), "error");
         }
       },
       error: function (error) {},

@@ -38,9 +38,9 @@ class TKT_Front_Ajax
                 }
 
                 $ticket_manager = new TKT_Ticket_Manager();
-                $ticket_id = $ticket_manager->insert($ticket_data);
+                $ticket = $ticket_manager->insert($ticket_data);
 
-                if ($ticket_id) {
+                if (isset($ticket['ticket_id'])) {
                     $this->make_response(['__success' => true, 'results' => TKT_Ticket_Url::all()]);
                 }
             } else {
@@ -49,11 +49,14 @@ class TKT_Front_Ajax
         } else {
             //create ticket without file
             $ticket_manager = new TKT_Ticket_Manager();
-            $ticket_id = $ticket_manager->insert($ticket_data);
-            if ($ticket_id) {
-                $this->make_response(['__success' => true, 'results' => '']);
+            $ticket = $ticket_manager->insert($ticket_data);
+            if (isset($ticket['ticket_id'])) {
+                $this->make_response(['__success' => true, 'results' => TKT_Ticket_Url::all()]);
             }
         }
+
+        $this->make_response(['__success' => false, 'results' => $ticket]);
+
     }
     public function make_response($result)
     {
