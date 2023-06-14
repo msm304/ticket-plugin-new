@@ -43,5 +43,11 @@ class TKT_Ticket_Manager
         $insert_id = $this->wpdb->insert_id;
         return ['ticket_id' => $insert_id];
     }
-    
+    public function get_tickes($user_id)
+    {
+        if(!intval($user_id)){
+            return [];
+        }
+        return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE user_id = %d OR creator_id = %d" , $user_id , $user_id));
+    }
 }

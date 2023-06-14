@@ -1,3 +1,10 @@
+<?php
+$user_id = get_current_user_id();
+$ticket_manager = new TKT_Ticket_Manager();
+$tickets = $ticket_manager->get_tickes($user_id);
+
+$department_manager = new TKT_Front_Department_Manager();
+?>
 <div class="tkt-wrap tkt-all-tickets">
 
     <header class="tkt-panel-header tkt-clearfix">
@@ -55,70 +62,69 @@
 
     </div>
 
+    <?php if ($tickets) : ?>
+        <?php foreach ($tickets as $ticket) : ?>
+            <div class="tkt-tickets-list">
+                <div class="tkt-ticket-item" id="tkt-ticket-45">
 
-    <div class="tkt-tickets-list">
+                    <div class="tkt-item-title">
+                        <div class="tkt-item-inner">
 
-        <div class="tkt-ticket-item" id="tkt-ticket-45">
+                            <a href="<?php echo TKT_Ticket_Url::single($ticket->ID) ?>" class="tkt-ticket-title"><?php echo esc_html($ticket->title) ?></a>
 
-            <div class="tkt-item-title">
-                <div class="tkt-item-inner">
+                            <div>
 
-                    <a href="" class="tkt-ticket-title"></a>
+                                <div class="tkt-ticket-department">
+                                    <img src="<?php echo TKT_FRONT_ASSETS . 'images/' ?>menu.svg" width="12" height="12" alt="menu">
+                                    <?php $department = $department_manager->get_department($ticket->department_id); ?>
+                                    <span class="tkt-department"><?php echo esc_html($department->name) ?></span>
+                                </div>
 
-                    <div>
+                            </div>
+                        </div>
+                    </div>
 
-                        <div class="tkt-ticket-department">
-                            <img src="menu.svg" width="12" height="12" alt="menu">
-                            <span class="tkt-department"></span>
+                    <div class="tkt-item-user">
+                        <div class="tkt-item-inner">
+                            <?php 
+                                $user_data = get_userdata($ticket->creator_id);
+                            ?>
+                            <span class="tkt-creator"><?php echo $user_data->display_name ?></span>
+
+                        </div>
+                    </div>
+
+                    <div class="tkt-ticket-item-abs">
+
+                        <div class="tkt-reply-count tkt-reply-12">
+                            <img src="<?php echo TKT_FRONT_ASSETS . 'images/' ?>message.svg" width="20" height="20" alt="message">
+                            <span>12</span>
                         </div>
 
                     </div>
-                </div>
-            </div>
 
+                    <div class="tkt-item-date">
+                        <div class="tkt-item-inner">
 
-            <div class="tkt-item-user">
-                <div class="tkt-item-inner">
-                    <span class="tkt-creator"></span>
+                            <div class="tkt-date" dir="ltr"><?php echo tkt_format_date(strtotime($ticket->create_date)); ?></div>
 
-                </div>
-            </div>
+                        </div>
+                    </div>
 
-
-            <div class="tkt-ticket-item-abs">
-
-                <div class="tkt-reply-count tkt-reply-12">
-                    <img src="message.svg" width="20" height="20" alt="message">
-
-                </div>
-
-            </div>
-
-
-            <div class="tkt-item-date">
-                <div class="tkt-item-inner">
-
-                    <div class="tkt-date" dir="ltr"></div>
+                    <div class="tkt-item-actions">
+                        <div class="tkt-item-inner">
+                            <a href="<?php echo TKT_Ticket_Url::single($ticket->ID) ?>" class="tkt-btn tkt-btn-secondary tkt-btn-small">مشاهده تیکت</a>
+                        </div>
+                    </div>
 
                 </div>
             </div>
+        <?php endforeach; ?>
 
-
-            <div class="tkt-item-actions">
-                <div class="tkt-item-inner">
-                    <a href="" class="tkt-btn tkt-btn-secondary tkt-btn-small">مشاهده تیکت</a>
-                </div>
-            </div>
-
+    <?php else : ?>
+        <div class="tkt-alert tkt-alert-danger">
+            <p>هیچ تیکتی یافت نشد</p>
         </div>
-
-    </div>
-
-
-    <div class="tkt-alert tkt-alert-danger">
-        <p>هیچ تیکتی یافت نشد</p>
-    </div>
-
-
+    <?php endif; ?>
 
 </div>

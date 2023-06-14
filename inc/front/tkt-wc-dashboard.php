@@ -38,6 +38,9 @@ class TKT_WC_Dashboard
             if($_GET['action'] == 'new'){
                 return TKT_VIEWS_PATH . 'front/new-ticket.php';
             }
+            if($_GET['action'] == 'single' && $_GET['ticket-id']){
+                return TKT_VIEWS_PATH . 'front/single-ticket.php';
+            }
         }
         return TKT_VIEWS_PATH . 'front/tickets.php';
     }

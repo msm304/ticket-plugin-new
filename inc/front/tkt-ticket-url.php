@@ -11,4 +11,7 @@ class TKT_Ticket_Url
     {
         return add_query_arg(['action' => 'new'] , self::all());
     }
+    public static function single($ticket_id){
+        return add_query_arg(['action' => 'single' , 'ticket-id' =>$ticket_id] , self::all());
+    }
 }
