@@ -44,7 +44,7 @@ class TKT_Ticket_Manager
         return ['ticket_id' => $insert_id];
     }
 
-    public function get_tickes($user_id, $type, $status, $orderby)
+    public function get_tickes($user_id, $type = NULL, $status = NULL, $orderby = NULL)
     {
         if (!intval($user_id)) {
             return [];
@@ -95,5 +95,9 @@ class TKT_Ticket_Manager
                 break;
         }
         return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE " . $type_where . ' ' . $status_where . ' ' . $orderby_sql, $args));
+    }
+    public function tickets_count($user_id , $type , $status)
+    {
+        return count($this->get_tickes($user_id, $type, $status));
     }
 }

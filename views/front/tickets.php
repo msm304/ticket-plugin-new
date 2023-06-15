@@ -24,28 +24,29 @@ $statuses = tkt_get_status();
     <div class="tkt-statues-box">
         <div class="tkt-row">
 
-
             <div class="tkt-status-item tkt-status-item-all tkt-col">
-                <div>
-                    <div class="tkt-status-icon">
-                        <img src="<?php echo TKT_FRONT_ASSETS . 'images/' ?>ticket.png" width="32" height="32" alt="ticket">
-                        <span style="background: red;"></span>
-                    </div>
-                    <div class="tkt-status-name">باز</div>
-                    <div class="tkt-status-count" style="color: red;">35</div>
-                </div>
-            </div>
-
-            <div class="tkt-status-item tkt-status-item-open tkt-col">
                 <div>
                     <div class="tkt-status-icon">
                         <img src="<?php echo TKT_FRONT_ASSETS . 'images/' ?>ticket.png" width="32" height="32" alt="ticket">
                         <span></span>
                     </div>
                     <div class="tkt-status-name">همه</div>
-                    <div class="tkt-status-count" style="color: red;">100</div>
+                    <div class="tkt-status-count" style="color: red;"><?php echo $ticket_manager->tickets_count($user_id, NULL, NULL) ?></div>
                 </div>
             </div>
+
+            <?php foreach ($statuses as $status) : ?>
+                <div class="tkt-status-item tkt-status-item-open tkt-col">
+                    <div>
+                        <div class="tkt-status-icon">
+                            <img src="<?php echo TKT_FRONT_ASSETS . 'images/' ?>ticket.png" width="32" height="32" alt="ticket">
+                            <span style="background: <?php echo $status['color'] ?>;"></span>
+                        </div>
+                        <div class="tkt-status-name"><?php echo $status['name'] ?></div>
+                        <div class="tkt-status-count" style="color: red;"><?php echo $ticket_manager->tickets_count($user_id, NULL, $status['slug']) ?></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -76,21 +77,16 @@ $statuses = tkt_get_status();
     <?php if ($tickets) : ?>
         <?php foreach ($tickets as $ticket) : ?>
             <div class="tkt-tickets-list">
-                <div class="tkt-ticket-item" id="tkt-ticket-45">
-
+                <div class="tkt-ticket-item" id="tkt-ticket-45" style="border-left-color:<?php echo tkt_get_status_color($ticket->status)  ?>">
                     <div class="tkt-item-title">
                         <div class="tkt-item-inner">
-
                             <a href="<?php echo TKT_Ticket_Url::single($ticket->ID) ?>" class="tkt-ticket-title"><?php echo esc_html($ticket->title) ?></a>
-
                             <div>
-
                                 <div class="tkt-ticket-department">
                                     <img src="<?php echo TKT_FRONT_ASSETS . 'images/' ?>menu.svg" width="12" height="12" alt="menu">
                                     <?php $department = $department_manager->get_department($ticket->department_id); ?>
                                     <span class="tkt-department"><?php echo esc_html($department->name) ?></span>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -101,12 +97,9 @@ $statuses = tkt_get_status();
                             $user_data = get_userdata($ticket->creator_id);
                             ?>
                             <span class="tkt-creator"><?php echo $user_data->display_name ?></span>
-
                         </div>
                     </div>
-
                     <div class="tkt-ticket-item-abs">
-
                         <div class="tkt-reply-count tkt-reply-12">
                             <img src="<?php echo TKT_FRONT_ASSETS . 'images/' ?>message.svg" width="20" height="20" alt="message">
                             <span>12</span>

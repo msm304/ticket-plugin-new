@@ -38,3 +38,12 @@ function tkt_get_status()
     ];
     return $status_array;
 }
+function tkt_get_status_color($status)
+{
+    $statuses = tkt_get_status();
+    foreach ($statuses as $item) {
+        if ($status == $item['slug']) {
+            return $item['color'];
+        }
+    }
+}
