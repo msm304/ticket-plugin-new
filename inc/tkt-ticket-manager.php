@@ -96,8 +96,15 @@ class TKT_Ticket_Manager
         }
         return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE " . $type_where . ' ' . $status_where . ' ' . $orderby_sql, $args));
     }
-    public function tickets_count($user_id , $type , $status)
+    public function tickets_count($user_id, $type, $status)
     {
         return count($this->get_tickes($user_id, $type, $status));
+    }
+    public function get_ticket($ticket_id)
+    {
+        if(!intval($ticket_id)){
+            return NULL;
+        }
+        return $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM " . $this->table . " Where ID = %d" , $ticket_id));
     }
 }

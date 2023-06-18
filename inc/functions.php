@@ -47,3 +47,17 @@ function tkt_get_status_color($status)
         }
     }
 }
+function tkt_get_status_name($status)
+{
+    $statuses = tkt_get_status();
+    foreach ($statuses as $item) {
+        if ($status == $item['slug']) {
+            return $item['name'];
+        }
+    }
+}
+function tkt_get_file_name($url)
+{
+    $path = parse_url($url, PHP_URL_PATH);
+    return basename($path);
+}
