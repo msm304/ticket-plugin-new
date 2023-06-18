@@ -7,6 +7,9 @@ class TKT_Front_Ajax
     {
         add_action('wp_ajax_tkt_submit_ticket', [$this, 'submit_ticket']);
         add_action('wp_ajax_nopriv_tkt_submit_ticket', [$this, 'submit_ticket']);
+
+        add_action('wp_ajax_tkt_submit_reply', [$this, 'submit_reply']);
+        add_action('wp_ajax_nopriv_tkt_submit_reply', [$this, 'submit_reply']);
     }
     public function submit_ticket()
     {
@@ -56,7 +59,63 @@ class TKT_Front_Ajax
         }
 
         $this->make_response(['__success' => false, 'results' => $ticket]);
+    }
+    public function submit_reply()
+    {
+        if (!wp_verify_nonce($_POST['nonce'], 'tkt_ajax_nonce')) {
+            wp_send_json_error();
+        }
 
+        $user_id = get_current_user_id();
+        $ticket_id = $_POST['ticket-id'];
+        $ticket_manager = new TKT_Ticket_Manager();
+        $ticket = $ticket_manager->get_ticket($ticket_id);
+
+        if (!$ticket || $ticket->status == 'finished') {
+            $this->make_response(['__success' => false, 'results' => 'خطایی رخ داده است']);
+        }
+        $reply_data = ['body' => $_POST['body'], 'creator_id' => $user_id];
+        if (isset($_POST['status']) && !empty($_POST['status'])) {
+            $status = $_POST['status'];
+        } else {
+            $status = 'open';
+        }
+        $ticket_manager->update_status($ticket_id, $status);
+
+        // upload file
+        $file = $_FILES['file'];
+        if ($file) {
+            $uploader = new TKT_Upload_Manager($file);
+            $upload_result = $uploader->upload();
+        }
+        if (is_array($upload_result)) {
+            // create ticket with file
+            if ($upload_result['success']) {
+                if (isset($upload_result['url'])) {
+                    $reply_data['file'] = $upload_result['url'];
+                    // insert reply
+                    $reply_manager = new TKT_Reply_Manager($ticket_id);
+                    $insert = $reply_manager->insert($reply_data);
+
+                    if (is_numeric($insert)) {
+                        $ticket_manager->update_reply_date($ticket_id);
+                        $this->make_response(['__success' => true, 'results' => 'پاسخ ثبت شد']);
+                    }
+                } else {
+                    $this->make_response(['__success' => false, 'results' => $upload_result['message']]);
+                }
+            }
+        } else {
+            // insert reply
+            $reply_manager = new TKT_Reply_Manager($ticket_id);
+            $insert = $reply_manager->insert($reply_data);
+
+            if (is_numeric($insert)) {
+                $ticket_manager->update_reply_date($ticket_id);
+                $this->make_response(['__success' => true, 'results' => 'پاسخ ثبت شد']);
+            }
+        }
+        $this->make_response(['__success' => false, 'results' => $insert]);
     }
     public function make_response($result)
     {

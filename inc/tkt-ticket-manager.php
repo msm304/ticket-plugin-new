@@ -102,9 +102,24 @@ class TKT_Ticket_Manager
     }
     public function get_ticket($ticket_id)
     {
-        if(!intval($ticket_id)){
+        if (!intval($ticket_id)) {
             return NULL;
         }
-        return $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM " . $this->table . " Where ID = %d" , $ticket_id));
+        return $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM " . $this->table . " Where ID = %d", $ticket_id));
+    }
+    public function update_status($ticket_id, $status)
+    {
+        return $this->wpdb->update(
+            $this->table,
+            ['status' => $status],
+            ['ID' => $ticket_id],
+            ['%s'],
+            ['%d']
+        );
+    }
+    public function update_reply_date($ticket_id)
+    {
+        $data = date("Y-m-d H:i:s");
+        return $this->wpdb->query($this->wpdb->prepare("UPDATE " . $this->table . " SET reply_date = '" . $data . "' WHERE ID = %d", $ticket_id));
     }
 }

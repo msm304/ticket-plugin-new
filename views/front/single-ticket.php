@@ -50,7 +50,7 @@ $department_manager = new TKT_Front_Department_Manager();
 
             <form id="tkt-submit-ticket-reply" enctype="multipart/form-data">
 
-                <input type="hidden" id="tkt-ticket-id" name="ticket-id" value="">
+                <input type="hidden" id="tkt-ticket-id" name="ticket-id" value="<?php echo $ticket->ID ?>">
 
                 <div class="tkt-row">
                     <div class="tkt-content-wrapper tkt-col-12">
@@ -61,7 +61,6 @@ $department_manager = new TKT_Front_Department_Manager();
 
                         </div>
                     </div>
-
 
                     <div class="tkt-upload-wrapper tkt-col-12">
                         <div class="tkt-form-group">
@@ -97,7 +96,6 @@ $department_manager = new TKT_Front_Department_Manager();
 
         </div>
         <aside class="tkt-sidabar tkt-col-12 tkt-col-lg-4">
-
 
             <div class="tkt-widget">
                 <div class="tkt-ticket-department">

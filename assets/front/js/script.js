@@ -69,7 +69,11 @@ jQuery(document).ready(function ($) {
           // Swal.fire("تیکت ارسال شد", "تیکت شما با موفقیت ثبت شد", "success");
           window.location.href = response.results;
         } else {
-          Swal.fire("ارسال ناموفق", response.results.toString().replace(',','<br>'), "error");
+          Swal.fire(
+            "ارسال ناموفق",
+            response.results.toString().replace(",", "<br>"),
+            "error"
+          );
         }
       },
       error: function (error) {},
@@ -78,5 +82,50 @@ jQuery(document).ready(function ($) {
         loader.hide();
       },
     });
+  });
+  $("#tkt-submit-ticket-reply").submit(function (e) {
+    e.preventDefault();
+    let $this = $(this);
+
+    let submit = $this.find(".tkt-submit");
+    let loader = $this.find(".tkt-loader");
+
+    submit.prop("disabled", true);
+    loader.show();
+
+    form_data = new FormData();
+    form_data.append("action", "tkt_submit_reply");
+    form_data.append("nonce", TKT_DATA.nonce);
+    form_data.append(
+      "status",
+      $("#tkt-status").is(":checked") ? $("#tkt-status").val() : ""
+    );
+    form_data.append("ticket-id", $("#tkt-ticket-id").val());
+    form_data.append("body", $("#tkt-content").val());
+    form_data.append("file", $("#tkt-file").prop("files")[0]);
+
+        $.ajax({
+          type: "post",
+          url: TKT_DATA.ajax_url,
+          data: form_data,
+          contentType: false,
+          processData: false,
+          success: function (response) {
+            if (response.__success) {
+              Swal.fire("پاسخ ارسال شد", "پاسخ شما با موفقیت ثبت شد", "success");
+            } else {
+              Swal.fire(
+                "ارسال ناموفق",
+                response.results.toString().replace(",", "<br>"),
+                "error"
+              );
+            }
+          },
+          error: function (error) {},
+          complete: function () {
+            submit.prop("disabled", false);
+            loader.hide();
+          },
+        });
   });
 });
