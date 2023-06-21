@@ -26,7 +26,7 @@ function tkt_get_status()
             'color' => '#13ba5e',
         ],
         [
-            'slug' => 'close',
+            'slug' => 'closed',
             'name' => 'بسته شده',
             'color' => '#f28507',
         ],
@@ -60,4 +60,14 @@ function tkt_get_file_name($url)
 {
     $path = parse_url($url, PHP_URL_PATH);
     return basename($path);
+}
+
+function get_status_html($status)
+{
+    $status_name = tkt_get_status_name($status);
+    $status_color = tkt_get_status_color($status);
+    return '<div class="tkt-status">
+                    <span class="tkt-status-name">' . $status_name . '</span>
+                    <span class="tkt-status-color" style="background:' . $status_color . ';"></span>
+                </div>';
 }

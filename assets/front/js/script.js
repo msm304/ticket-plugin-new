@@ -7,6 +7,7 @@ jQuery(document).ready(function ($) {
     $this.next("p").slideToggle();
     $this.parentsUntil(".tkt-fags").toggleClass("tkt-collapse");
   });
+
   $("#tkt-parent-department").change(function (e) {
     e.preventDefault();
 
@@ -19,12 +20,14 @@ jQuery(document).ready(function ($) {
 
       return false;
     }
+
     $(".tkt-description-wrapper").hide();
     $(".tkt-child-department").hide();
     $(".tkt-child-department-" + value)
       .show()
       .prop("selectedIndex", 0);
   });
+
   $(".tkt-child-department").change(function (e) {
     e.preventDefault();
 
@@ -34,6 +37,7 @@ jQuery(document).ready(function ($) {
     $(".tkt-description-wrapper").hide();
     $(".tkt-description-wrapper-" + value).show();
   });
+
   $("#tkt-submit-ticket").submit(function (e) {
     e.preventDefault();
 
@@ -64,9 +68,15 @@ jQuery(document).ready(function ($) {
       data: form_data,
       contentType: false,
       processData: false,
+
       success: function (response) {
         if (response.__success) {
-          // Swal.fire("تیکت ارسال شد", "تیکت شما با موفقیت ثبت شد", "success");
+          // Swal.fire(
+          //     'تیکت ارسال شد',
+          //     'تیکت شما با موفقیت ثبت شد',
+          //     'success'
+          //   );
+
           window.location.href = response.results;
         } else {
           Swal.fire(
@@ -76,15 +86,19 @@ jQuery(document).ready(function ($) {
           );
         }
       },
+
       error: function (error) {},
+
       complete: function () {
         submit.prop("disabled", false);
         loader.hide();
       },
     });
   });
+
   $("#tkt-submit-ticket-reply").submit(function (e) {
     e.preventDefault();
+
     let $this = $(this);
 
     let submit = $this.find(".tkt-submit");
@@ -104,28 +118,35 @@ jQuery(document).ready(function ($) {
     form_data.append("body", $("#tkt-content").val());
     form_data.append("file", $("#tkt-file").prop("files")[0]);
 
-        $.ajax({
-          type: "post",
-          url: TKT_DATA.ajax_url,
-          data: form_data,
-          contentType: false,
-          processData: false,
-          success: function (response) {
-            if (response.__success) {
-              Swal.fire("پاسخ ارسال شد", "پاسخ شما با موفقیت ثبت شد", "success");
-            } else {
-              Swal.fire(
-                "ارسال ناموفق",
-                response.results.toString().replace(",", "<br>"),
-                "error"
-              );
-            }
-          },
-          error: function (error) {},
-          complete: function () {
-            submit.prop("disabled", false);
-            loader.hide();
-          },
-        });
+    $.ajax({
+      type: "post",
+      url: TKT_DATA.ajax_url,
+      data: form_data,
+      contentType: false,
+      processData: false,
+
+      success: function (response) {
+        if (response.__success) {
+          $(".tkt-replies").html(response.replies_html);
+          $(".tkt-widget-status .tkt-status").remove();
+          $(".tkt-widget-status").prepend(response.__status);
+
+          Swal.fire("پاسخ ارسال شد", "پاسخ شما با موفقیت ثبت شد", "success");
+        } else {
+          Swal.fire(
+            "ارسال ناموفق",
+            response.results.toString().replace(",", "<br>"),
+            "error"
+          );
+        }
+      },
+
+      error: function (error) {},
+
+      complete: function () {
+        submit.prop("disabled", false);
+        loader.hide();
+      },
+    });
   });
 });

@@ -1,10 +1,20 @@
 <?php
+
 $ticket_id = $_GET['ticket-id'];
+
 $ticket_manager = new TKT_Ticket_Manager();
 $ticket = $ticket_manager->get_ticket($ticket_id);
+
 $user_data = get_userdata($ticket->creator_id);
-$department_manager = new TKT_Front_Department_Manager();
+
+$department_managre = new TKT_Front_Department_Manager();
+
+$reply_manager = new TKT_Reply_Manager($ticket_id);
+$replies = $reply_manager->get_replies();
+
 ?>
+
+
 <div class="tkt-wrap tkt-view-ticket tkt-show-sibebar">
     <header class="tkt-panel-header tkt-clearfix">
         <h4>مشاهده تیکت</h4>
@@ -16,7 +26,7 @@ $department_manager = new TKT_Front_Department_Manager();
     <div class="tkt-ticket-title">
         <h4>
             <span><?php echo esc_html($ticket->title) ?></span>
-            <span class="tkt-ticket-id">شناسه تیکت:<?php echo $ticket->ID ?></span>
+            <span class="tkt-ticket-id">شناسه تیکت: <?php echo $ticket->ID ?></span>
         </h4>
 
 
@@ -33,20 +43,30 @@ $department_manager = new TKT_Front_Department_Manager();
                     <span class="tkt-date" dir="ltr"><?php echo tkt_format_date(strtotime($ticket->create_date)) ?></span>
                 </div>
                 <div class="tkt-ticket-content">
-                    <!-- show ticket content -->
+
                     <?php echo nl2br($ticket->body) ?>
+
+
                     <?php if ($ticket->file) : ?>
+
                         <div class="tkt-ath-file">
+
                             <a href="<?php echo $ticket->file ?>" class="tkt-clearfix" title="دانلود" target="_blank">
                                 <span class="tkt-icon"><img src="<?php echo TKT_FRONT_ASSETS . 'images/'; ?>diamond.svg" width="24" height="24" alt="diamond"></span>
                                 <span class="tkt-file-name"><?php echo tkt_get_file_name($ticket->file) ?></span>
                                 <img class="tkt-icon-download" src="<?php echo TKT_FRONT_ASSETS . 'images/'; ?>download.svg" width="18" height="18" alt="download">
                             </a>
+
                         </div>
+
                     <?php endif; ?>
+
                 </div>
             </div>
             <div class="tkt-replies-title"><span>پاسخ ها</span></div>
+
+            <?php include(TKT_VIEWS_PATH . 'front/replies.php'); ?>
+
 
             <form id="tkt-submit-ticket-reply" enctype="multipart/form-data">
 
@@ -61,6 +81,7 @@ $department_manager = new TKT_Front_Department_Manager();
 
                         </div>
                     </div>
+
 
                     <div class="tkt-upload-wrapper tkt-col-12">
                         <div class="tkt-form-group">
@@ -97,21 +118,22 @@ $department_manager = new TKT_Front_Department_Manager();
         </div>
         <aside class="tkt-sidabar tkt-col-12 tkt-col-lg-4">
 
+
             <div class="tkt-widget">
                 <div class="tkt-ticket-department">
                     <span class="tkt-icon"></span>
                     <div class="tkt-ticket-department-holder">
                         <span>دپارتمان: </span>
-
                         <?php
-                        $department = $department_manager->get_department($ticket->department_id);
+                            $department = $department_managre->get_department($ticket->department_id);
                         ?>
-
                         <span class="tkt-department"><?php echo $department->name ?></span>
                     </div>
                 </div>
             </div>
             <div class="tkt-widget-status tkt-widget">
+
+            <?php echo get_status_html($ticket->status) ?>
 
                 <div class="tkt-creator">
                     <span><?php echo $user_data->display_name ?></span>
@@ -123,25 +145,24 @@ $department_manager = new TKT_Front_Department_Manager();
                     <strong>اولویت: </strong>
                     <span class="tkt-priority">
                         <?php
-                        switch ($ticket->priority) {
-                            case 'low':
-                                echo 'کم';
-                                break;
-                            case 'medium':
-                                echo 'متوسط';
-                                break;
-                            case 'high':
-                                echo 'زیاد';
-                                break;
-                        }
+                            switch($ticket->priority){
+                                case 'low':
+                                    echo 'کم';
+                                    break;
+                                case 'medium':
+                                    echo 'متوسط';
+                                    break;
+                                case 'high':
+                                    echo 'زیاد';
+                                    break;
+                            }
+
                         ?>
                     </span>
                 </div>
 
-                <div class="tkt-status">
-                    <span class="tkt-status-name"><?php echo tkt_get_status_name($ticket->status) ?></span>
-                    <span class="tkt-status-color" style="background: <?php echo tkt_get_status_color($ticket->status) ?>;"></span>
-                </div>
+             
+
                 <hr class="custom">
 
                 <div class="tkt-time">
@@ -155,6 +176,7 @@ $department_manager = new TKT_Front_Department_Manager();
                 </div>
 
             </div>
+
 
         </aside>
     </div>

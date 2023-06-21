@@ -38,4 +38,8 @@ class TKT_Reply_Manager
         );
         return $this->wpdb->insert_id;
     }
+    public function get_replies()
+    {
+        return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE ticket_id = %d ORDER BY create_date ASC", $this->ticket_id));
+    }
 }

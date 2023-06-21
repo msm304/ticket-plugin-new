@@ -99,7 +99,11 @@ class TKT_Front_Ajax
 
                     if (is_numeric($insert)) {
                         $ticket_manager->update_reply_date($ticket_id);
-                        $this->make_response(['__success' => true, 'results' => 'پاسخ ثبت شد']);
+                        $replies = $reply_manager->get_replies();
+                        ob_start();
+                        include TKT_VIEWS_PATH . 'front/replies.php';
+                        $replies_html = ob_get_clean();
+                        $this->make_response(['__success' => true, 'results' => 'پاسخ ثبت شد', 'replies_html' => $replies_html, '__status' => get_status_html($status)]);
                     }
                 } else {
                     $this->make_response(['__success' => false, 'results' => $upload_result['message']]);
@@ -112,7 +116,12 @@ class TKT_Front_Ajax
 
             if (is_numeric($insert)) {
                 $ticket_manager->update_reply_date($ticket_id);
-                $this->make_response(['__success' => true, 'results' => 'پاسخ ثبت شد']);
+                $replies = $reply_manager->get_replies();
+
+                ob_start();
+                include TKT_VIEWS_PATH . 'front/replies.php';
+                $replies_html = ob_get_clean();
+                $this->make_response(['__success' => true, 'results' => 'پاسخ ثبت شد', 'replies_html' => $replies_html, '__status' => get_status_html($status)]);
             }
         }
         $this->make_response(['__success' => false, 'results' => $insert]);
