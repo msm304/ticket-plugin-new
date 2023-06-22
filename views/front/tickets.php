@@ -5,9 +5,11 @@ $user_id = get_current_user_id();
 $type = $_GET['type'] ? $_GET['type'] : 'all';
 $status = $_GET['status'] ? $_GET['status'] : 'all';
 $orderby = $_GET['orderby'] ? $_GET['orderby'] : 'reply-date';
+$page_num = $_GET['page-number'] ? $_GET['page-number'] : 1;
 
 $ticket_manager = new TKT_Ticket_Manager();
-$tickets = $ticket_manager->get_tickes($user_id, $type, $status, $orderby);
+$tickets = $ticket_manager->get_tickes($user_id, $type, $status, $orderby , $page_num);
+$total_count = $ticket_manager->tickets_count($user_id, $type, $status, $orderby);
 
 $department_manager = new TKT_Front_Department_Manager();
 
@@ -102,7 +104,10 @@ $statuses = tkt_get_status();
                     <div class="tkt-ticket-item-abs">
                         <div class="tkt-reply-count tkt-reply-12">
                             <img src="<?php echo TKT_FRONT_ASSETS . 'images/' ?>message.svg" width="20" height="20" alt="message">
-                            <span>12</span>
+                            <?php $replies = count((new TKT_Reply_Manager($ticket->ID))->get_replies()); ?>
+                            <?php if ($replies > 0) : ?>
+                                <span><?php echo $replies; ?></span>
+                            <?php endif; ?>
                         </div>
 
                     </div>
@@ -124,6 +129,20 @@ $statuses = tkt_get_status();
                 </div>
             </div>
         <?php endforeach; ?>
+
+        <?php
+        $per_page = 10;
+        $big = 999999999;
+        $args = [
+            'base' => preg_replace('/\?.*/', '', get_pagenum_link()) . '%_%',
+            'format' => '?page-number=%#%',
+            'current' => max(1, $page_num),
+            'total' => ceil($total_count / $per_page),
+            'type' => 'list',
+            'prev_next' => false,
+        ];
+        echo paginate_links($args);
+        ?>
 
     <?php else : ?>
         <div class="tkt-alert tkt-alert-danger">
