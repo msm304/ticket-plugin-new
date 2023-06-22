@@ -67,7 +67,7 @@ return array(
     'TKT_Flash_Message' => $baseDir . '/inc/admin/tkt-flash-message.php',
     'TKT_Front_Ajax' => $baseDir . '/inc/front/tkt-front-ajax.php',
     'TKT_Front_Department_Manager' => $baseDir . '/inc/front/tkt-front-department-manager.php',
-    'TKT_Menu' => $baseDir . '/inc/admin/abstract/tkt-menu.php',
+    'TKT_Menu' => $baseDir . '/inc/admin/tkt-menu.php',
     'TKT_Reply_Manager' => $baseDir . '/inc/tkt-reply-manager.php',
     'TKT_Ticket_Manager' => $baseDir . '/inc/tkt-ticket-manager.php',
     'TKT_Ticket_Url' => $baseDir . '/inc/front/tkt-ticket-url.php',

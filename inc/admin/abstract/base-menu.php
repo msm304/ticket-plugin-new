@@ -1,6 +1,7 @@
 <?php
 
-abstract class Base_Menu{
+abstract class Base_Menu
+{
     protected $page_title;
     protected $menu_title;
     protected $capability;
@@ -12,32 +13,39 @@ abstract class Base_Menu{
     public function __construct()
     {
         $this->capability = 'manage_options';
-        add_action('admin_menu' , [$this , 'create_menu']);
+        add_action('admin_menu', [$this, 'create_menu']);
     }
 
-    public function create_menu(){
+    public function create_menu()
+    {
         add_menu_page(
             $this->page_title,
             $this->menu_title,
             $this->capability,
             $this->menu_slug,
-            [$this , 'page'],
+            [$this, 'page'],
             $this->icon,
 
         );
-        if($this->has_sub_menu){
-            foreach($this->sub_items as $item){
-                add_submenu_page(
+        if ($this->has_sub_menu) {
+            foreach ($this->sub_items as $item) {
+                $hook = add_submenu_page(
                     $this->menu_slug,
                     $item['page_title'],
                     $item['menu_title'],
                     $this->capability,
                     $item['menu_slug'],
-                    [$this , $item['callback']],
+                    [$this, $item['callback']],
                 );
+                if ($item['load']['status']) {
+                    add_action(
+                        'load-' . $hook,
+                        [$this, $item['load']['callback']],
+                    );
+                }
             }
         }
-        remove_submenu_page($this->menu_slug , $this->menu_slug);
+        remove_submenu_page($this->menu_slug, $this->menu_slug);
     }
     abstract public function page();
 }
