@@ -12,8 +12,8 @@ class TKT_Menu extends Base_Menu
         $this->has_sub_menu = true;
         $this->sub_items = [
             'settings' => [
-                'page_title' => __('Setting', 'ticket-plugin'),
-                'menu_title' => __('Setting', 'ticket-plugin'),
+                'page_title' => __('تنظیمات', 'ticket-plugin'),
+                'menu_title' => __('تنظیمات', 'ticket-plugin'),
                 'menu_slug' => 'tkt-settings',
                 'callback' => 'tickets_page',
                 'load' =>  [
@@ -22,8 +22,8 @@ class TKT_Menu extends Base_Menu
 
             ],
             'tickets' => [
-                'page_title' => __('all tickets', 'ticket-plugin'),
-                'menu_title' => __('all tickets', 'ticket-plugin'),
+                'page_title' => __('تیکت ها', 'ticket-plugin'),
+                'menu_title' => __('تیکت ها', 'ticket-plugin'),
                 'menu_slug' => 'tkt-tickets',
                 'callback' => 'tickets_page',
                 'load' =>  [
@@ -33,8 +33,8 @@ class TKT_Menu extends Base_Menu
 
             ],
             'departments' => [
-                'page_title' => __('departments', 'ticket-plugin'),
-                'menu_title' => __('departments', 'ticket-plugin'),
+                'page_title' => __('دپارتمان ها', 'ticket-plugin'),
+                'menu_title' => __('دپارتمان ها', 'ticket-plugin'),
                 'menu_slug' => 'tkt-departments',
                 'callback' => 'departments_page',
                 'load' =>  [

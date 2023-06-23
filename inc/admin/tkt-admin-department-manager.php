@@ -122,4 +122,12 @@ class TKT_Admin_Department_Manager
         $insert = $this->wpdb->insert($this->table, $data, $data_format);
         return $insert ? $this->wpdb->insert_id : null;
     }
+    public function get_parent_department()
+    {
+        return $this->wpdb->get_results("SELECT * FROM " . $this->table . " WHERE parent = 0 ORDER BY position");
+    }
+    public function get_child_department($parent_id)
+    {
+        return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE parent = %d ORDER BY position", $parent_id));
+    }
 }

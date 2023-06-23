@@ -36,6 +36,13 @@ function tkt_get_status()
             'color' => '#141414',
         ],
     ];
+    if (is_admin()) {
+        $status_array[] = [
+            'slug' => 'trash',
+            'name' => 'زباله دان',
+            'color' => '#141414',
+        ];
+    }
     return $status_array;
 }
 function tkt_get_status_color($status)
