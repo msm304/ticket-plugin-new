@@ -71,6 +71,7 @@ return array(
     'TKT_Reply_Manager' => $baseDir . '/inc/tkt-reply-manager.php',
     'TKT_Ticket_Manager' => $baseDir . '/inc/tkt-ticket-manager.php',
     'TKT_Ticket_Url' => $baseDir . '/inc/front/tkt-ticket-url.php',
+    'TKT_Ticket_list' => $baseDir . '/inc/admin/tkt-ticket-list.php',
     'TKT_Upload_Manager' => $baseDir . '/inc/tkt-upload-manager.php',
     'TKT_WC_Dashboard' => $baseDir . '/inc/front/tkt-wc-dashboard.php',
     'WP_Customize_Control_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',

@@ -3,6 +3,9 @@ defined('ABSPATH') || exit('Not Access');
 
 class TKT_Menu extends Base_Menu
 {
+
+    public $ticket_object = NULL;
+
     public function __construct()
     {
         $this->page_title = 'تیکت پشتیبانی';
@@ -62,6 +65,8 @@ class TKT_Menu extends Base_Menu
             'option' => 'tickets_per_page'
         ];
         add_screen_option('per_page', $args);
+
+        $this->ticket_object = new TKT_Ticket_list();
     }
     public function departments_page()
     {

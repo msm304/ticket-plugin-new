@@ -72,6 +72,7 @@ class ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6
         'TKT_Reply_Manager' => __DIR__ . '/../..' . '/inc/tkt-reply-manager.php',
         'TKT_Ticket_Manager' => __DIR__ . '/../..' . '/inc/tkt-ticket-manager.php',
         'TKT_Ticket_Url' => __DIR__ . '/../..' . '/inc/front/tkt-ticket-url.php',
+        'TKT_Ticket_list' => __DIR__ . '/../..' . '/inc/admin/tkt-ticket-list.php',
         'TKT_Upload_Manager' => __DIR__ . '/../..' . '/inc/tkt-upload-manager.php',
         'TKT_WC_Dashboard' => __DIR__ . '/../..' . '/inc/front/tkt-wc-dashboard.php',
         'WP_Customize_Control_CSF' => __DIR__ . '/../..' . '/inc/admin/codestar/functions/customize.php',

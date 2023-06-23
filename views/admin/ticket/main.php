@@ -76,7 +76,10 @@ $stauses = tkt_get_status();
                     </form> -->
 
                     <form method="post">
-
+                        <?php
+                        $this->ticket_object->prepare_items();
+                        $this->ticket_object->display();
+                        ?>
                     </form>
                 </div>
             </div>
