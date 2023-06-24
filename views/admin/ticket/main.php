@@ -13,7 +13,7 @@ $stauses = tkt_get_status();
     <h1 class="wp-heading-inline">تیکت ها</h1>
     <a href="?page=tkt-new-ticket" class="page-title-action">ارسال تیکت جدید</a>
 
-    <?php if($search): ?>
+    <?php if ($search) : ?>
         <span class="subtitle">نتایج جستجو برای: <?php echo $search ?></span>
     <?php endif; ?>
 
@@ -31,9 +31,9 @@ $stauses = tkt_get_status();
                         </li>
                         <?php foreach ($stauses as $item) : ?>
                             <li class="<?php echo $item['slug'] ?>">
-                                <a href="" class="current" style="color: <?php echo $item['color'] ?>;">
+                                <a href="admin.php?page=tkt-tickets&status=<?php echo $item['slug'] ?>" class="current" style="color: <?php echo $item['color'] ?>;">
                                     <?php echo esc_html($item['name']) ?>
-                                    <span class="count">(24)</span>
+                                    <span class="count">(<?php echo count($item) ?>)</span>
                                 </a>
                             </li>
                         <?php endforeach; ?>
@@ -72,11 +72,11 @@ $stauses = tkt_get_status();
                             </select>
 
                             <select id="tkt-creator-id" name="creator-id">
-                                <?php 
-                                    if($creator_id){
-                                        $user_data = get_userdata($creator_id);
-                                        echo '<option value="' . esc_attr($creator_id) . '" selected>' . $user_data->user_login . '</option>';
-                                    }
+                                <?php
+                                if ($creator_id) {
+                                    $user_data = get_userdata($creator_id);
+                                    echo '<option value="' . esc_attr($creator_id) . '" selected>' . $user_data->user_login . '</option>';
+                                }
                                 ?>
                             </select>
 
