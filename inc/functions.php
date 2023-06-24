@@ -73,8 +73,33 @@ function get_status_html($status)
 {
     $status_name = tkt_get_status_name($status);
     $status_color = tkt_get_status_color($status);
-    return '<div class="tkt-status">
+
+    $style = is_admin() && !wp_doing_ajax() ? 'style="background:' . $status_color . '"' : '';
+
+    return '<div class="tkt-status"' . $style . '>
                     <span class="tkt-status-name">' . $status_name . '</span>
                     <span class="tkt-status-color" style="background:' . $status_color . ';"></span>
                 </div>';
+}
+
+function get_department_html($department_id)
+{
+    $department_manager = new TKT_Front_Department_Manager();
+    $department = $department_manager->get_department($department_id);
+    return '<span>' . esc_html($department->name) . '</span>';
+}
+
+function get_priority_name($priority)
+{
+    switch($priority){
+        case 'low';
+            return 'کم';
+            break;
+        case 'medium';
+            return 'متوسط';
+            break;
+        case 'high';
+            return 'زیاد';
+            break;
+    }
 }

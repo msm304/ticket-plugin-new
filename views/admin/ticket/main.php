@@ -25,7 +25,7 @@ $stauses = tkt_get_status();
                             <li class="<?php echo $item['slug'] ?>">
                                 <a href="" class="current" style="color: <?php echo $item['color'] ?>;">
                                     <?php echo esc_html($item['name']) ?>
-                                    <span class="count">24</span>
+                                    <span class="count">(24)</span>
                                 </a>
                             </li>
                         <?php endforeach; ?>
