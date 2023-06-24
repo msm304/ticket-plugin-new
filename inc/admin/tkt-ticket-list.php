@@ -32,7 +32,25 @@ class TKT_Ticket_list extends WP_List_Table
     }
     public function get_tickets()
     {
-        return $this->wpdb->get_results("SELECT * FROM " . $this->table, ARRAY_A);
+        $params = $_GET;
+        $args = [];
+        $sql = " WHERE 1=1";
+        if (isset($params['department-id']) && $params['department-id'] !== '') {
+            $sql .= " AND (department_id = %d)";
+            $args[] = $params['department-id'];
+        }
+        if (isset($params['priority']) && $params['priority'] !== '') {
+            $sql .= " AND (priority = %s)";
+            $args[] = $params['priority'];
+        }
+        if (isset($params['creator-id']) && $params['creator-id'] !== '') {
+            $sql .= " AND (creator_id = %d)";
+            $args[] = $params['creator-id'];
+        }
+        if (isset($params['search']) && $params['search'] !== '') {
+            $sql .= " AND (title LIKE '%" . $params['search'] . "%' )";
+        }
+        return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . $sql, $args), ARRAY_A);
     }
     public function record_count()
     {

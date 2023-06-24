@@ -1,4 +1,10 @@
 <?php
+
+$page = $_REQUEST['page'] ?? NULL;
+$department_id = $_REQUEST['department-id'];
+$priority = $_REQUEST['priority'];
+$creator_id = $_REQUEST['creator-id'];
+$search = $_REQUEST['search'];
 $department_manager = new TKT_Admin_Department_Manager();
 $parent_departments = $department_manager->get_parent_department();
 $stauses = tkt_get_status();
@@ -7,7 +13,9 @@ $stauses = tkt_get_status();
     <h1 class="wp-heading-inline">تیکت ها</h1>
     <a href="?page=tkt-new-ticket" class="page-title-action">ارسال تیکت جدید</a>
 
-    <!-- <span class="subtitle">نتایج جستجو برای: کلمه جستجو شده</span> -->
+    <?php if($search): ?>
+        <span class="subtitle">نتایج جستجو برای: <?php echo $search ?></span>
+    <?php endif; ?>
 
     <hr class="wp-header-end">
     <div id="poststuff">
@@ -48,7 +56,7 @@ $stauses = tkt_get_status();
                                             <?php $child_department = $department_manager->get_child_department($parent->ID) ?>
                                             <?php if (count($child_department)) : ?>
                                                 <?php foreach ($child_department as $child) : ?>
-                                                    <option value="<?php echo $child->ID ?>"><?php echo esc_html($child->name); ?></option>
+                                                    <option <?php selected($department_id, $child->ID) ?> value="<?php echo $child->ID ?>"><?php echo esc_html($child->name); ?></option>
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
                                         </optgroup>
@@ -58,12 +66,18 @@ $stauses = tkt_get_status();
 
                             <select name="priority">
                                 <option value="">تمام اولویت ها</option>
-                                <option value="low">کم</option>
-                                <option value="meduim">متوسط</option>
-                                <option value="high">زیاد</option>
+                                <option <?php selected($priority, 'low') ?> value="low">کم</option>
+                                <option <?php selected($priority, 'medium') ?> value="medium">متوسط</option>
+                                <option <?php selected($priority, 'high') ?> value="high">زیاد</option>
                             </select>
 
                             <select id="tkt-creator-id" name="creator-id">
+                                <?php 
+                                    if($creator_id){
+                                        $user_data = get_userdata($creator_id);
+                                        echo '<option value="' . esc_attr($creator_id) . '" selected>' . $user_data->user_login . '</option>';
+                                    }
+                                ?>
                             </select>
 
                             <input type="search" name="search" value="<?php echo $search ?>" placeholder="جستجو">
