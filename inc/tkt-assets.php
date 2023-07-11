@@ -14,6 +14,7 @@ class TKT_Assets
         wp_enqueue_style('tkt-admin-style', TKT_ADMIN_ASSETS . 'css/style.css');
         wp_enqueue_style('tkt-select2', TKT_ADMIN_ASSETS . 'css/select2.min.css');
         // scripts
+        wp_enqueue_media();
         wp_enqueue_script('tkt-select2', TKT_ADMIN_ASSETS . 'js/select2.min.js', ['jquery'], true);
         wp_enqueue_script('tkt-main', TKT_ADMIN_ASSETS . 'js/main.js', ['jquery'], TKT_VER, true);
         wp_localize_script('tkt-main', 'TKT_DATA', [

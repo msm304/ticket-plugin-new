@@ -43,6 +43,15 @@ class TKT_Menu extends Base_Menu
                 'load' =>  [
                     'status' => false,
                 ]
+            ],
+            'new-ticket' => [
+                'page_title' => 'ارسال تیکت',
+                'menu_title' => 'ارسال تیکت',
+                'menu_slug' => 'tkt-new-ticket',
+                'callback' => 'new_ticket_page',
+                'load' =>  [
+                    'status' => false,
+                ]
             ]
         ];
 
@@ -67,6 +76,10 @@ class TKT_Menu extends Base_Menu
         add_screen_option('per_page', $args);
 
         $this->ticket_object = new TKT_Ticket_list();
+    }
+    public function new_ticket_page()
+    {
+        include TKT_VIEWS_PATH . 'admin/ticket/new.php';
     }
     public function departments_page()
     {

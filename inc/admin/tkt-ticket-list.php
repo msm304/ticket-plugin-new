@@ -25,8 +25,10 @@ class TKT_Ticket_list extends WP_List_Table
             'creator_id' => 'ایجاد کننده تیکت',
             'status' => 'وضعیت',
             'priority' => 'اهمیت',
-            'create_date' => 'تاریخ ایجاد',
-            'reply_date' => 'تاریخ آخرین پاسخ'
+            // PROBLEM //
+            // 'create_date' => 'تاریخ ایجاد',
+            // 'reply_date' => 'تاریخ آخرین پاسخ'
+            // PROBLEM //
         ];
         return $columns;
     }
@@ -119,13 +121,15 @@ class TKT_Ticket_list extends WP_List_Table
         $action = ['edit' => '<a href="' . get_edit_user_link($item['creator_id']) . '" target="_blank">' . 'پروفایل' . '</a>'];
         return $creator . $this->row_actions($action);
     }
-    public function get_sortable_columns()
-    {
-        return [
-            'create_date' => ['create_date' , true],
-            'reply_date' => ['reply_date' , true]
-        ];
-    }
+    // PROBLEM //
+    // public function get_sortable_columns()
+    // {
+    //     return [
+    //         'create_date' => ['create_date' , true],
+    //         'reply_date' => ['reply_date' , true]
+    //     ];
+    // }
+    // PROBLEM // 
     public function prepare_items()
     {
         $this->items = $this->get_tickets();
