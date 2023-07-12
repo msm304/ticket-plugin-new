@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
     'Base_Menu' => $baseDir . '/inc/admin/abstract/base-menu.php',
     'CSF' => $baseDir . '/inc/admin/codestar/classes/setup.class.php',
     'CSF_Abstract' => $baseDir . '/inc/admin/codestar/classes/abstract.class.php',
@@ -59,6 +60,8 @@ return array(
     'CSF_Walker_Nav_Menu_Edit' => $baseDir . '/inc/admin/codestar/functions/walker.php',
     'CSF_Welcome' => $baseDir . '/inc/admin/codestar/views/welcome.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'PhpToken' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+    'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
     'TKT_Admin_Ajax' => $baseDir . '/inc/admin/tkt-admin-ajax.php',
     'TKT_Admin_Department_Manager' => $baseDir . '/inc/admin/tkt-admin-department-manager.php',
     'TKT_Answerable_Manager' => $baseDir . '/inc/tkt-answerable-manager.php',
@@ -74,6 +77,8 @@ return array(
     'TKT_Ticket_list' => $baseDir . '/inc/admin/tkt-ticket-list.php',
     'TKT_Upload_Manager' => $baseDir . '/inc/tkt-upload-manager.php',
     'TKT_WC_Dashboard' => $baseDir . '/inc/front/tkt-wc-dashboard.php',
+    'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+    'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     'WP_Customize_Control_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',
     'WP_Customize_Panel_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',
     'WP_Customize_Section_CSF' => $baseDir . '/inc/admin/codestar/functions/customize.php',

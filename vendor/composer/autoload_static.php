@@ -6,7 +6,70 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6
 {
+    public static $files = array (
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
+        'a4ecaeafb8cfb009ad0e052c90355e98' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/functions.php',
+        'e4e590a9b5afe940db71ee1662c02677' => __DIR__ . '/..' . '/morilog/jalali/src/helpers.php',
+    );
+
+    public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
+            'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Contracts\\Translation\\' => 30,
+            'Symfony\\Component\\Translation\\' => 30,
+        ),
+        'M' => 
+        array (
+            'Morilog\\Jalali\\' => 15,
+        ),
+        'C' => 
+        array (
+            'Carbon\\' => 7,
+        ),
+        'A' => 
+        array (
+            'Assert\\' => 7,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
+        'Symfony\\Polyfill\\Mbstring\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Contracts\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
+        ),
+        'Symfony\\Component\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Morilog\\Jalali\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/morilog/jalali/src',
+        ),
+        'Carbon\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
+        'Assert\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/beberlei/assert/lib/Assert',
+        ),
+    );
+
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Base_Menu' => __DIR__ . '/../..' . '/inc/admin/abstract/base-menu.php',
         'CSF' => __DIR__ . '/../..' . '/inc/admin/codestar/classes/setup.class.php',
         'CSF_Abstract' => __DIR__ . '/../..' . '/inc/admin/codestar/classes/abstract.class.php',
@@ -60,6 +123,8 @@ class ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6
         'CSF_Walker_Nav_Menu_Edit' => __DIR__ . '/../..' . '/inc/admin/codestar/functions/walker.php',
         'CSF_Welcome' => __DIR__ . '/../..' . '/inc/admin/codestar/views/welcome.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'TKT_Admin_Ajax' => __DIR__ . '/../..' . '/inc/admin/tkt-admin-ajax.php',
         'TKT_Admin_Department_Manager' => __DIR__ . '/../..' . '/inc/admin/tkt-admin-department-manager.php',
         'TKT_Answerable_Manager' => __DIR__ . '/../..' . '/inc/tkt-answerable-manager.php',
@@ -75,6 +140,8 @@ class ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6
         'TKT_Ticket_list' => __DIR__ . '/../..' . '/inc/admin/tkt-ticket-list.php',
         'TKT_Upload_Manager' => __DIR__ . '/../..' . '/inc/tkt-upload-manager.php',
         'TKT_WC_Dashboard' => __DIR__ . '/../..' . '/inc/front/tkt-wc-dashboard.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
         'WP_Customize_Control_CSF' => __DIR__ . '/../..' . '/inc/admin/codestar/functions/customize.php',
         'WP_Customize_Panel_CSF' => __DIR__ . '/../..' . '/inc/admin/codestar/functions/customize.php',
         'WP_Customize_Section_CSF' => __DIR__ . '/../..' . '/inc/admin/codestar/functions/customize.php',
@@ -83,6 +150,8 @@ class ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit5bf8fbc8850a80c1cb463250cecd6de6::$classMap;
 
         }, null, ClassLoader::class);

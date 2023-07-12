@@ -6,7 +6,9 @@
             "email": "soltani5747@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "morilog/jalali": "3.1.2"
+    },
     "autoload": {
         "classmap": ["inc/"]
     }

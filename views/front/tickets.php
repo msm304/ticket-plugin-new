@@ -111,15 +111,15 @@ $statuses = tkt_get_status();
                         </div>
 
                     </div>
-// PROBLEM //
-                    <!-- <div class="tkt-item-date">
+
+                    <div class="tkt-item-date">
                         <div class="tkt-item-inner">
 
                             <div class="tkt-date" dir="ltr"><?php echo tkt_format_date(strtotime($ticket->create_date)); ?></div>
 
                         </div>
-                    </div> -->
-// PROBLEM //
+                    </div>
+
                     <div class="tkt-item-actions">
                         <div class="tkt-item-inner">
                             <a href="<?php echo TKT_Ticket_Url::single($ticket->ID) ?>" class="tkt-btn tkt-btn-secondary tkt-btn-small">مشاهده تیکت</a>
