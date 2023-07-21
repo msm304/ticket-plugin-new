@@ -6,8 +6,15 @@ class TKT_Menu extends Base_Menu
 
     public $ticket_object = NULL;
 
+    private $wpdb;
+    private $table;
+
     public function __construct()
     {
+        global $wpdb;
+        $this->wpdb = $wpdb;
+        $this->table = $wpdb->prefix . 'tkt_tickets';
+
         $this->page_title = 'تیکت پشتیبانی';
         $this->menu_title = 'تیکت پشتیبانی';
         $this->menu_slug = 'ticket-plugin';
@@ -79,6 +86,14 @@ class TKT_Menu extends Base_Menu
     }
     public function new_ticket_page()
     {
+        if(isset($_POST['publish'])){
+            if(!isset($_POST['ticket_nonce']) || wp_verify_nonce($_POST['ticket_nonce'] , 'ticket_security')){
+                echo 'Sorry, nonce not verify';
+                exit;
+            }
+            // create ticket
+            
+        }
         include TKT_VIEWS_PATH . 'admin/ticket/new.php';
     }
     public function departments_page()

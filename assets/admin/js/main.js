@@ -101,7 +101,13 @@ jQuery(document).ready(function ($) {
       .on("select", function () {
         var uploadedFile = file.state().get("selection").first();
         var fileURL = uploadedFile.toJSON().url;
-        $this.val(fileURL);  
+        $this.val(fileURL);
       });
+  });
+
+  $(".tkt-edit-date").click(function (e) {
+    e.preventDefault();
+    var $this = $(this);
+    $this.next("input").toggle();
   });
 });

@@ -235,15 +235,13 @@ $parent_departments = $department_manager->get_parent_department();
                                         <input type="checkbox" id="tkt-notification" name="notification" checked>
                                         <label for="tkt-notification">ارسال نوتیفیکیشن</label>
                                     </div>
-                                    <?php if ($is_edit) : ?>
                                         <div class="misc-pub-section">
                                             <span class="dashicons dashicons-calendar"></span>
 
                                             <span dir="ltr">تاریخ</span>
                                             <a href="#" class="tkt-edit-date">ویرایش</a>
-                                            <input type="text" class="regular-text" name="create-date" value="<?php echo date('Y-m-d H:i:s', strtotime($ticket->create_date)) ?>">
+                                            <input type="text" class="regular-text" name="create-date" value="<?php echo date('Y-m-d H:i:s' , time()) ?>">
                                         </div>
-                                    <?php endif; ?>
 
                                 </div>
                             </div>
