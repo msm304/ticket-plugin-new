@@ -59,7 +59,17 @@ class TKT_Menu extends Base_Menu
                 'load' =>  [
                     'status' => false,
                 ]
-            ]
+            ],
+            'edit-ticket' => [
+                'page_title' => 'ویرایش تیکت',
+                'menu_title' => 'ویرایش تیکت',
+                'menu_slug' => 'tkt-edit-ticket',
+                'callback' => 'edit_ticket_page',
+                'load' =>  [
+                    'status' => false,
+                ]
+            ],
+
         ];
 
         parent::__construct();
@@ -94,36 +104,46 @@ class TKT_Menu extends Base_Menu
             $current_user = get_current_user_id();
             $data = $_POST;
 
-            // create ticket
-            $ids = [];
-            if ($data['user-id'] && count($data['user-id'])) {
-                foreach ($data['user-id'] as $user_id) {
-                    $insert = $this->wpdb->insert(
-                        $this->table,
-                        [
-                            'title' => sanitize_text_field($data['title']),
-                            'body' => stripslashes_deep($data['tkt-content']),
-                            'status' => $data['status'],
-                            'priority' => $data['priority'],
-                            'creator_id' => $current_user,
-                            'user_id' => $user_id,
-                            'from_admin' => 1,
-                            'department_id' => $data['department-id'],
-                            'file' => $data['file'] ? sanitize_text_field($data['file']) : null,
-                        ],
-                        ['%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s']
-                    );
-                    if ($insert) {
-                        $ids[] = $this->wpdb->insert_id;
-                    }
-                }
-            }
+            $ids = $this->create_ticket($current_user, $data);
+
             if (count($ids)) {
                 foreach ($ids as $id) {
                     TKT_Flash_Message::add_message('تیکت با موفقیت ارسال شد.' . ' ' . ' شماره تیکت: ' . $id);
                 }
             }
         }
+        include TKT_VIEWS_PATH . 'admin/ticket/new.php';
+    }
+    public function create_ticket($creator_id, $data)
+    {
+        // create ticket
+        $ids = [];
+        if ($data['user-id'] && count($data['user-id'])) {
+            foreach ($data['user-id'] as $user_id) {
+                $insert = $this->wpdb->insert(
+                    $this->table,
+                    [
+                        'title' => sanitize_text_field($data['title']),
+                        'body' => stripslashes_deep($data['tkt-content']),
+                        'status' => $data['status'],
+                        'priority' => $data['priority'],
+                        'creator_id' => $$creator_id,
+                        'user_id' => $user_id,
+                        'from_admin' => 1,
+                        'department_id' => $data['department-id'],
+                        'file' => $data['file'] ? sanitize_text_field($data['file']) : null,
+                    ],
+                    ['%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s']
+                );
+                if ($insert) {
+                    $ids[] = $this->wpdb->insert_id;
+                }
+            }
+        }
+        return $ids;
+    }
+    public function edit_ticket_page()
+    {
         include TKT_VIEWS_PATH . 'admin/ticket/new.php';
     }
     public function departments_page()

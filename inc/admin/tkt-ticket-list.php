@@ -54,14 +54,14 @@ class TKT_Ticket_list extends WP_List_Table
         if (isset($params['search']) && $params['search'] !== '') {
             $sql .= " AND (title LIKE '%" . $params['search'] . "%' )";
         }
-        switch($params['orderby']){
+        switch ($params['orderby']) {
             case "create_date":
                 $sql .= " ORDER BY create_date " . $params['order'];
                 break;
             case "reply_date";
                 $sql .= " ORDER BY reply_date " . $params['order'];
                 break;
-            default: 
+            default:
                 $sql .= " ORDER BY reply_date DESC";
         }
         return $this->wpdb->get_results($this->wpdb->prepare("SELECT * FROM " . $this->table . $sql, $args), ARRAY_A);
@@ -103,8 +103,8 @@ class TKT_Ticket_list extends WP_List_Table
     {
         $title = '<strong>' . $item['title'] . '</stron>';
         $action = [
-            'id' => sprintf('<span>' . 'آیدی' . ': %d </span>', $item['ID']),
-            'edit' => sprintf('<a href="">' . 'ویرایش' . '</a>'),
+            'id' => sprintf('<span>' . 'آیدی' . ': %d </span>', $item['ID'], absint($item['ID'])),
+            'edit' => sprintf('<a href="?page=tkt-edit-ticket&id=%s">' . 'ویرایش' . '</a>', absint($item['ID'])),
         ];
         return $title . $this->row_actions($action);
     }
@@ -122,8 +122,8 @@ class TKT_Ticket_list extends WP_List_Table
     public function get_sortable_columns()
     {
         return [
-            'create_date' => ['create_date' , true],
-            'reply_date' => ['reply_date' , true]
+            'create_date' => ['create_date', true],
+            'reply_date' => ['reply_date', true]
         ];
     }
     public function prepare_items()
