@@ -8,9 +8,11 @@ class TKT_Menu extends Base_Menu
 
     private $wpdb;
     private $table;
+    private $ticket_id = null;
 
     public function __construct()
     {
+        $this->ticket_id = $_GET['id'];
         global $wpdb;
         $this->wpdb = $wpdb;
         $this->table = $wpdb->prefix . 'tkt_tickets';
@@ -96,6 +98,7 @@ class TKT_Menu extends Base_Menu
     }
     public function new_ticket_page()
     {
+        $is_edit = false;
         if (isset($_POST['publish'])) {
             if (!isset($_POST['ticket_nonce']) || !wp_verify_nonce($_POST['ticket_nonce'], 'ticket_security')) {
                 echo 'Sorry, nonce not verify';
@@ -144,7 +147,17 @@ class TKT_Menu extends Base_Menu
     }
     public function edit_ticket_page()
     {
+        $is_edit = true;
+        $ticket = $this->get_ticket();
+
         include TKT_VIEWS_PATH . 'admin/ticket/new.php';
+    }
+    public function get_ticket()
+    {
+        if (!intval($this->ticket_id)) {
+            return null;
+        }
+        return $this->wpdb->get_row($this->wpdb->prepare("SELECT * FROM " . $this->table . " WHERE ID = %d", $this->ticket_id));
     }
     public function departments_page()
     {
