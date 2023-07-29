@@ -86,13 +86,43 @@ class TKT_Menu extends Base_Menu
     }
     public function new_ticket_page()
     {
-        if(isset($_POST['publish'])){
-            if(!isset($_POST['ticket_nonce']) || wp_verify_nonce($_POST['ticket_nonce'] , 'ticket_security')){
+        if (isset($_POST['publish'])) {
+            if (!isset($_POST['ticket_nonce']) || !wp_verify_nonce($_POST['ticket_nonce'], 'ticket_security')) {
                 echo 'Sorry, nonce not verify';
                 exit;
             }
+            $current_user = get_current_user_id();
+            $data = $_POST;
+
             // create ticket
-            
+            $ids = [];
+            if ($data['user-id'] && count($data['user-id'])) {
+                foreach ($data['user-id'] as $user_id) {
+                    $insert = $this->wpdb->insert(
+                        $this->table,
+                        [
+                            'title' => sanitize_text_field($data['title']),
+                            'body' => stripslashes_deep($data['tkt-content']),
+                            'status' => $data['status'],
+                            'priority' => $data['priority'],
+                            'creator_id' => $current_user,
+                            'user_id' => $user_id,
+                            'from_admin' => 1,
+                            'department_id' => $data['department-id'],
+                            'file' => $data['file'] ? sanitize_text_field($data['file']) : null,
+                        ],
+                        ['%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d', '%s']
+                    );
+                    if ($insert) {
+                        $ids[] = $this->wpdb->insert_id;
+                    }
+                }
+            }
+            if (count($ids)) {
+                foreach ($ids as $id) {
+                    TKT_Flash_Message::add_message('تیکت با موفقیت ارسال شد.' . ' ' . ' شماره تیکت: ' . $id);
+                }
+            }
         }
         include TKT_VIEWS_PATH . 'admin/ticket/new.php';
     }
