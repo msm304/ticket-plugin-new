@@ -36,8 +36,6 @@ $parent_departments = $department_manager->get_parent_department();
                         </div>
                     </div>
 
-
-
                     <div class="postbox" id="tkt-info-div">
                         <h2 class="hndle">
                             <span>اطلاعات تیکت</span>

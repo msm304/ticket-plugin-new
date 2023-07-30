@@ -110,4 +110,10 @@ jQuery(document).ready(function ($) {
     var $this = $(this);
     $this.next("input").toggle();
   });
+
+  $(".tkt-toggle-edit").click(function (e) {
+    e.preventDefault();
+    var $this = $(this);
+    $this.parentsUntil("#tkt-replies").next(".tkt-editor").slideToggle();
+  });
 });

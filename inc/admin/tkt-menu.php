@@ -150,6 +150,9 @@ class TKT_Menu extends Base_Menu
         $is_edit = true;
         $ticket = $this->get_ticket();
 
+        $reply_manager = new TKT_Reply_Manager($this->ticket_id);
+        $replies = $reply_manager->get_replies();
+
         include TKT_VIEWS_PATH . 'admin/ticket/new.php';
     }
     public function get_ticket()
